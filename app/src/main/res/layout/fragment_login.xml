@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#C51111"
     android:elevation="20dp"
-    tools:context=".LoginFragment">
+    tools:context=".Login.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
             android:padding="40dp"
