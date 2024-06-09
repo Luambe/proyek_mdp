@@ -42,9 +42,9 @@ class ManageApp : Application() {
             val userService = retrofit.create(UserService::class.java)
 
             val roomDatabase = Room.databaseBuilder(
-                context,
+                context.applicationContext,
                 AppDatabase::class.java,
-                "employeeManagementAppDb1"
+                "ManageKaryawanDB"
             ).build()
 
             // Initialize repositories with the respective services and database DAOs

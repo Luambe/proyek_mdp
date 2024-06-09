@@ -50,4 +50,10 @@ class LoginViewModel : ViewModel() {
         }
     }
 
+    fun insertAllDataToDatabase(){
+        viewModelScope.launch {
+            userRepository.getAllUsers(true)
+        }
+    }
+
 }

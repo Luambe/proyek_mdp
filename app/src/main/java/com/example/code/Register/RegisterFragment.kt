@@ -9,7 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.code.Login.LoginViewModel
 import com.example.code.R
 
 class RegisterFragment : Fragment() {
@@ -24,7 +27,7 @@ class RegisterFragment : Fragment() {
     lateinit var etPhone: EditText
     lateinit var rbOwner: RadioButton
     lateinit var rbEmployee: RadioButton
-
+    val viewModel: RegisterViewModel by viewModels<RegisterViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,12 +68,22 @@ class RegisterFragment : Fragment() {
         }
 
         btnRegister.setOnClickListener{
-            val name = etName.text.toString()
-            val username = etUsername.text.toString()
-            val password = etPassword.text.toString()
-            val confirm = etConfirm.text.toString()
-            val email = etEmail.text.toString()
-            val phone = etPhone.text.toString()
+            etName.setText("test")
+            etUsername.setText("test123")
+            etPassword.setText("123")
+            etConfirm.setText("123")
+            etEmail.setText("test@gmail.com")
+            etPhone.setText("123123123123")
+            role = "employee"
+
+            var name = etName.text.toString()
+            var username = etUsername.text.toString()
+            var password = etPassword.text.toString()
+            var confirm = etConfirm.text.toString()
+            var email = etEmail.text.toString()
+            var phone = etPhone.text.toString()
+
+
 
             if(name == "") {
                 Toast.makeText(requireContext(), "Name cannot be empty!", Toast.LENGTH_SHORT).show()
@@ -111,6 +124,23 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(requireContext(), "Role cannot be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+
+
+            viewModel.register(name, username, password, confirm, email, phone, role)
+
+            // Dalam viewModel Anda, setelah pemanggilan register berhasil:
+            viewModel.status.observe(viewLifecycleOwner, Observer { status ->
+                if (status == "success") {
+                    // Tampilkan pesan toast jika pendaftaran berhasil
+                    Toast.makeText(requireContext(), "Registration successful!", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(requireContext(), "Registration Failed!", Toast.LENGTH_SHORT).show()
+                    viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+                        println("Error : ${error}")
+                    })
+                }
+            })
 
         }
     }
