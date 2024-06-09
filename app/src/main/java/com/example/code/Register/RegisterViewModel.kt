@@ -39,6 +39,7 @@ class RegisterViewModel : ViewModel() {
         }
 
         val newUser = User(
+            userId = "",
             userName = userName,
             userUsername = userUsername,
             userPassword = userPassword,

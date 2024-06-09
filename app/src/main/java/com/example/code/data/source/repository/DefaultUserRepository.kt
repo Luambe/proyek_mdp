@@ -22,11 +22,20 @@ class DefaultUserRepository(
     }
 
     suspend fun getUserById(userId: String): User? {
+        localDataSource.userDao().deleteAllUsers()
+        val users = remoteDataSource.getAllUsers()
+        localDataSource.userDao().deleteAllUsers()
+        for (user in users) {
+            localDataSource.userDao().insertUser(user)
+        }
         return localDataSource.userDao().getUserById(userId)
     }
 
-    suspend fun getUserByIdAndPassword(userId: String, password: String): User? {
-        return localDataSource.userDao().getUserByIdAndPassword(userId, password)
+    suspend fun getUserByIdAndPassword(username: String, password: String): User? {
+        println("username : ${username}")
+        println("password : ${password}")
+        println("users : ${remoteDataSource.getUserByIdAndPassword(username,password)}")
+        return remoteDataSource.getUserByIdAndPassword(username,password)
     }
 
     suspend fun createUser(user: User) {

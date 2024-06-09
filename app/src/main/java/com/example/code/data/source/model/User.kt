@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
 @Entity(tableName = "users")
 data class User(
     @PrimaryKey
-    @ColumnInfo(name = "user_id") val userId: String? = null,
+    @ColumnInfo(name = "user_id") val userId: String,
     @ColumnInfo(name = "user_name") val userName: String?,
     @ColumnInfo(name = "user_username") val userUsername: String?,
     @ColumnInfo(name = "user_password") val userPassword: String?,
@@ -17,5 +17,6 @@ data class User(
     @ColumnInfo(name = "user_email") val userEmail: String?,
     @ColumnInfo(name = "company_id") val companyId: String? = null,
     @ColumnInfo(name = "user_role") val userRole: String?
-)
+) {
+}
 

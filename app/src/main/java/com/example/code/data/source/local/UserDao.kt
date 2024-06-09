@@ -14,17 +14,17 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE user_id = :userId")
     suspend fun getUserById(userId: String): User?
 
-    @Query("SELECT * FROM users WHERE user_id = :userId AND user_password = :password")
-    suspend fun getUserByIdAndPassword(userId: String, password: String): User?
+    @Query("SELECT * FROM users WHERE user_username = :user_username AND user_password = :password")
+    suspend fun getUserByIdAndPassword(user_username: String, password: String): User?
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     suspend fun insertUser(user: User)
 
     @Query("UPDATE users SET user_role = :newRole WHERE user_id = :userId")
     suspend fun updateUserRole(userId: String, newRole: String)
 
     @Query("DELETE FROM users WHERE user_id = :userId")
-    suspend fun deleteUser(userId: String)
+    suspend fun deleteUser(userId: kotlin.String?)
 
     @Query("DELETE FROM users")
     suspend fun deleteAllUsers()

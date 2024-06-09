@@ -2,6 +2,7 @@ package com.example.code.Login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.code.R
 
@@ -18,6 +21,7 @@ class LoginFragment : Fragment() {
     lateinit var btnLogin:Button
     lateinit var etUsername:EditText
     lateinit var etPassword: EditText
+    val viewModel:LoginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,18 +53,33 @@ class LoginFragment : Fragment() {
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
 
-            if(username == ""){
-                Toast.makeText(requireContext(), "Username cannot be empty!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+//            if(username == ""){
+//                Toast.makeText(requireContext(), "Username cannot be empty!", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
+//
+//            if(password == ""){
+//                Toast.makeText(requireContext(), "Password cannot be empty!", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
 
-            if(password == ""){
-                Toast.makeText(requireContext(), "Password cannot be empty!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+            viewModel.getAllUser()
 
-            goToActivityDashboard()
-            clearInput()
+
+
+
+
+//            viewModel.login(username, password)
+//
+//            viewModel.status.observe(viewLifecycleOwner, Observer {
+//                if(it == "success"){
+//                    Toast.makeText(requireContext(), "login success", Toast.LENGTH_SHORT).show()
+//                }else{
+//                    Toast.makeText(requireContext(), "login gagal", Toast.LENGTH_SHORT).show()
+//                }
+//            })
+//            goToActivityDashboard()
+//            clearInput()
         }
     }
 
