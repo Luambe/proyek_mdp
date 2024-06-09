@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.marginTop
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
@@ -26,7 +27,7 @@ class UserCompanyFragment : Fragment() {
 
     lateinit var btnAdd : FloatingActionButton
     lateinit var rvCompany : RecyclerView
-    lateinit var layoutmanage : LayoutManager
+    lateinit var layoutmanager : LayoutManager
     lateinit var companyAdapter : CompanyAdapter
     val viewModel:UserCompanyViewModel by viewModels<UserCompanyViewModel>()
     override fun onCreateView(
@@ -43,9 +44,10 @@ class UserCompanyFragment : Fragment() {
         btnAdd = view.findViewById(R.id.btnAdd)
         rvCompany = view.findViewById(R.id.rvCompany)
 
-        companyAdapter = CompanyAdapter{
+        val companyAdapter = CompanyAdapter{
             val action = UserCompanyFragmentDirections.actionGlobalCompanyDashboardFragment()
             findNavController().navigate(action)
+            viewModel.getCompanies()
         }
 
         rvCompany.adapter = companyAdapter
@@ -60,6 +62,7 @@ class UserCompanyFragment : Fragment() {
         viewModel.getCompanies()
 
         rvCompany.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        rvCompany.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
         btnAdd.setOnClickListener {
             val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment()

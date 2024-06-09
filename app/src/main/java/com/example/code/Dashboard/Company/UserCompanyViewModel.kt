@@ -18,6 +18,7 @@ class UserCompanyViewModel : ViewModel(){
 
     fun getCompanies(force:Boolean = false){
         ioScope.launch {
+//            _companies.value = companyRepository.getAllCompanies(force)
             _companies.postValue(companyRepository.getAllCompanies(force))
         }
     }
