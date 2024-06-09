@@ -34,4 +34,9 @@
         android:name="com.example.code.AddCompany.AddCompanyFragment"
         android:label="fragment_add_company"
         tools:layout="@layout/fragment_add_company" />
+    <fragment
+        android:id="@+id/companyDashboardFragment"
+        android:name="com.example.code.CompanyDashboard.CompanyDashboardFragment"
+        android:label="fragment_company_dashboard"
+        tools:layout="@layout/fragment_company_dashboard" /><action android:id="@+id/action_global_companyDashboardFragment" app:destination="@id/companyDashboardFragment"/>
 </navigation>
