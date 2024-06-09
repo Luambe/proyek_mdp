@@ -1,5 +1,6 @@
 package com.example.code.Login
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.example.code.R
 class LoginFragment : Fragment() {
 
     lateinit var btnGoToRegister : Button
+    lateinit var btnLogin:Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +27,37 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnGoToRegister = view.findViewById(R.id.btnGoToRegister)
+        btnLogin = view.findViewById(R.id.btn_login_login)
 
         btnGoToRegister.setOnClickListener {
             val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             findNavController().navigate(action)
         }
+
+        btnLogin.setOnClickListener {
+            goToActivityDashboard()
+        }
     }
 
 
+    private lateinit var navigationListener: NavigationListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is NavigationListener) {
+            navigationListener = context as NavigationListener
+        } else {
+            throw RuntimeException("Activity must implement NavigationListener")
+        }
+    }
+
+    // Trigger navigation from FragmentA
+    fun goToActivityDashboard() {
+        navigationListener.navigateToActivityDashboard()
+    }
+
+}
+
+interface NavigationListener {
+    fun navigateToActivityDashboard()
 }

@@ -2,16 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frame_frame_dashboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Dashboard.DashboardFragment">
+    tools:context=".Dashboard.Company.UserCompanyFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        Username-->
+        <!--        Username-->
         <TextView
             android:id="@+id/usernameTextView"
             android:layout_width="wrap_content"
@@ -28,16 +27,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--        Menu Button-->
-<!--        <ImageButton-->
-<!--            android:id="@+id/navMenuButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--            android:src="@drawable/baseline_dehaze_24"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/navMenuButton"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+        <!--            android:src="@drawable/baseline_dehaze_24"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginStart="20dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <!--        Recycler View-->
         <androidx.recyclerview.widget.RecyclerView
@@ -50,9 +49,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/expandable_menu"
             app:layout_constraintTop_toBottomOf="@id/usernameTextView" />
-<!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
 
-<!--        Add Company Button-->
+        <!--        Add Company Button-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
@@ -64,7 +63,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-<!--        Side menu-->
+        <!--        Side menu-->
         <androidx.cardview.widget.CardView
             android:id="@+id/expandable_menu"
             android:layout_width="0dp"
@@ -75,7 +74,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
-<!--            Side menu constraint-->
+            <!--            Side menu constraint-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -93,7 +92,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-<!--                list of menu-->
+                <!--                list of menu-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,6 +107,4 @@
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--        android:tint="#000000"-->
-
 </FrameLayout>

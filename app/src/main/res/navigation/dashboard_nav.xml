@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/test_nav"
+    app:startDestination="@id/userHomeFragment">
+
+    <fragment
+        android:id="@+id/userTaskFragment"
+        android:name="com.example.code.Dashboard.Task.UserTaskFragment"
+        android:label="fragment_user_task"
+        tools:layout="@layout/fragment_user_task" />
+    <fragment
+        android:id="@+id/userCompanyFragment"
+        android:name="com.example.code.Dashboard.Company.UserCompanyFragment"
+        android:label="fragment_user_company"
+        tools:layout="@layout/fragment_user_company" />
+    <fragment
+        android:id="@+id/userHomeFragment"
+        android:name="com.example.code.Dashboard.Home.UserHomeFragment"
+        android:label="fragment_user_home"
+        tools:layout="@layout/fragment_user_home" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.code.Dashboard.Profile.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" /><action android:id="@+id/action_global_userHomeFragment" app:destination="@id/userHomeFragment"/><action android:id="@+id/action_global_userCompanyFragment" app:destination="@id/userCompanyFragment"/><action android:id="@+id/action_global_userTaskFragment" app:destination="@id/userTaskFragment"/><action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment"/>
+</navigation>

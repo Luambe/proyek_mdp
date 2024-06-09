@@ -26,13 +26,13 @@ class DashboardFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
-        btnHamburger = view.findViewById(R.id.navMenuButton)
+//        btnHamburger = view.findViewById(R.id.navMenuButton)
         btnCloseHamburger = view.findViewById(R.id.navMenuCloseButton)
         expandableMenu = view.findViewById(R.id.expandable_menu)
 
-        btnHamburger.setOnClickListener {
-            toggleExpandableMenu()
-        }
+//        btnHamburger.setOnClickListener {
+//            toggleExpandableMenu()
+//        }
 
         btnCloseHamburger.setOnClickListener{
             toggleExpandableMenu()

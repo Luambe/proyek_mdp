@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item1"
-        android:title="Item 1"/>
+        android:id="@+id/itemHome"
+        android:title="Home"/>
 
     <item
-        android:id="@+id/item2"
-        android:title="Item 2"/>
+        android:id="@+id/itemCompany"
+        android:title="Company"/>
 
     <item
-        android:id="@+id/item3"
-        android:title="Item 3"/>
+        android:id="@+id/itemTask"
+        android:title="Task"/>
+
+    <item
+        android:id="@+id/itemProfile"
+        android:title="Profile"/>
+
+    <item
+        android:id="@+id/itemLogout"
+        android:title="Logout"/>
 </menu>
