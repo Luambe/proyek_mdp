@@ -11,19 +11,6 @@
         android:layout_height="match_parent">
 
         <!--        Username-->
-        <TextView
-            android:id="@+id/usernameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:text="Company"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!--        Menu Button-->
         <!--        <ImageButton-->
@@ -38,19 +25,43 @@
         <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <!--        Recycler View-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+
+        <!--        Add Company Button-->
+
+        <TextView
+            android:id="@+id/usernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="24dp"
+            android:text="Company"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView7"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="72dp"
             android:background="@color/design_default_color_error"
+            android:backgroundTint="@color/design_default_color_error"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-        <!--        Add Company Button-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCompany"
+                android:layout_width="match_parent"
+                android:layout_height="654dp" />
+        </androidx.cardview.widget.CardView>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
