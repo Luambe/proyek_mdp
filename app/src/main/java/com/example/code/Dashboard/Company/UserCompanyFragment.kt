@@ -71,7 +71,6 @@ class UserCompanyFragment : Fragment() {
             showInputDialog() { userInput ->
                 Toast.makeText(requireContext(), "You entered: $userInput", Toast.LENGTH_SHORT).show()
             }
->>>>>>> Stashed changes
         }
     }
     private fun showInputDialog(onInputReceived: (String) -> Unit) {
