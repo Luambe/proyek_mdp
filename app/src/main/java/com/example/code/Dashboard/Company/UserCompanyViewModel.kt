@@ -21,8 +21,6 @@ class UserCompanyViewModel : ViewModel(){
         viewModelScope.launch {
 //            _companies.value = companyRepository.getAllCompanies(force)
             _companies.postValue(companyRepository.getAllCompanies(force))
-            val temp = companyRepository.getAllCompanies()
-            println("${temp}")
         }
     }
 }

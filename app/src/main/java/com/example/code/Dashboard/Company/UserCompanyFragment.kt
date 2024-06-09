@@ -48,18 +48,15 @@ class UserCompanyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        println("masuk")
         val companies = ArrayList<Company>()
 
         val companyAdapter = CompanyAdapter{
             val action = UserCompanyFragmentDirections.actionGlobalCompanyDashboardFragment()
             findNavController().navigate(action)
-            println("masuk4")
             viewModel.getCompanies()
         }
         binding.rvCompany.adapter = companyAdapter
 
-        println("${viewModel.companies.value}")
         companyAdapter.submitList(ArrayList<Company>())
 
         val companiesObserver:Observer<List<Company>> = Observer{
@@ -68,7 +65,6 @@ class UserCompanyFragment : Fragment() {
         viewModel.companies.observe(viewLifecycleOwner, companiesObserver)
 
         viewModel.getCompanies()
-        println("${viewModel.companies.value}")
 
         binding.rvCompany.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
