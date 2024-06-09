@@ -9,8 +9,17 @@ class DefaultCompanyRepository(
     private val remoteDataSource: CompanyService
 ) {
     suspend fun getAllCompanies(forceUpdate: Boolean = false): List<Company> {
-
-            return remoteDataSource.getAllCompanies()
+        return if (forceUpdate){
+            val companies = remoteDataSource.getAllCompanies()
+            remoteDataSource.deleteAllCompany()
+            for (company in companies) {
+                remoteDataSource.createCompany(company)
+            }
+            companies
+        }
+        else{
+            remoteDataSource.getAllCompanies()
+        }
     }
 
     suspend fun getCompanyById(companyId: String): Company? {
