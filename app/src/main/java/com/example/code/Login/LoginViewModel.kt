@@ -50,24 +50,4 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun getAllUser(){
-        viewModelScope.launch {
-            val usersList = userRepository.getAllUsers(true)
-            _users.postValue(usersList)
-
-
-
-            // Cetak setiap pengguna ke logcat
-            usersList.forEach { user ->
-                println("User ID: ${user.userId}")
-                println("Name: ${user.userName}")
-                println("Username: ${user.userUsername}")
-                println("Phone: ${user.userPhone}")
-                println("Email: ${user.userEmail}")
-                println("Role: ${user.userRole}")
-                println("Company ID: ${user.companyId}")
-                println()
-            }
-        }
-    }
 }

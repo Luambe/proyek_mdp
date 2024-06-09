@@ -2,6 +2,7 @@ package com.example.code.Login
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -68,18 +69,42 @@ class LoginFragment : Fragment() {
 
 
 
+            viewModel.login(username, password)
 
-//            viewModel.login(username, password)
-//
-//            viewModel.status.observe(viewLifecycleOwner, Observer {
-//                if(it == "success"){
-//                    Toast.makeText(requireContext(), "login success", Toast.LENGTH_SHORT).show()
-//                }else{
-//                    Toast.makeText(requireContext(), "login gagal", Toast.LENGTH_SHORT).show()
-//                }
-//            })
-            goToActivityDashboard()
-//            clearInput()
+            viewModel.status.observe(viewLifecycleOwner, Observer { status ->
+                when(status) {
+                    "loading" -> {
+                        // Tampilkan loading spinner atau indikator lainnya
+                    }
+                    "success" -> {
+                        // Munculkan toast setelah 100 milidetik
+                        Handler().postDelayed({
+                            Toast.makeText(requireContext(), "login success", Toast.LENGTH_SHORT).show()
+                        }, 100) // Delay selama 100 milidetik
+                        // Observe LiveData _user
+                        viewModel.user.observe(viewLifecycleOwner, Observer { user ->
+                            // Handle ketika data pengguna berubah
+                            if (user != null) {
+                                // Disini kamu bisa melakukan apa yang diperlukan dengan data pengguna
+                                val userId = user.userId
+                                println("User id dari login fragment : ${userId}")
+                                // Navigasi ke halaman berikutnya dengan membawa userId
+                                goToActivityDashboard(userId)
+
+                            }
+                        })
+
+                        clearInput()
+                    }
+                    "error" -> {
+                        // Munculkan toast setelah 100 milidetik
+                        Handler().postDelayed({
+                            Toast.makeText(requireContext(), "login gagal", Toast.LENGTH_SHORT).show()
+                        }, 100) // Delay selama 100 milidetik
+                    }
+                }
+            })
+
         }
     }
 
@@ -96,12 +121,12 @@ class LoginFragment : Fragment() {
     }
 
     // Trigger navigation from FragmentA
-    fun goToActivityDashboard() {
-        navigationListener.navigateToActivityDashboard()
+    fun goToActivityDashboard(userId:String) {
+        navigationListener.navigateToActivityDashboard(userId)
     }
 
 }
 
 interface NavigationListener {
-    fun navigateToActivityDashboard()
+    fun navigateToActivityDashboard(userId: String)
 }

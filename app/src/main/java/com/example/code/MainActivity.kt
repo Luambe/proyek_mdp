@@ -13,8 +13,9 @@ class MainActivity : AppCompatActivity(), NavigationListener  {
         //change 1
     }
 
-    override fun navigateToActivityDashboard() {
+    override fun navigateToActivityDashboard(userId: String) {
         val intent = Intent(this, DashboardActivity::class.java)
+        intent.putExtra("userId", userId)
         startActivity(intent)
     }
 }
