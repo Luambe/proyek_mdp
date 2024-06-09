@@ -17,7 +17,7 @@ class AddCompanyViewModel : ViewModel() {
     val status: LiveData<String>
         get() = _status
 
-    fun getCompany(id:Int){
+    fun getCompany(id:String){
         viewModelScope.launch {
 //            _post.value = postRepository.getPostById(id)
             _company.postValue(companyRepository.getCompanyById(id))
