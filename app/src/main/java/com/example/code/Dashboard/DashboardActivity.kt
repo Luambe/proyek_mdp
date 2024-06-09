@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
@@ -81,11 +82,27 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.itemLogout -> {
-                    finish()
+                    showLogoutConfirmationDialog()
                 }
             }
             true
         }
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Logout Confirmation")
+        builder.setMessage("Are you sure you want to logout?")
+
+        builder.setPositiveButton("Logout") { dialog, which ->
+            finish()
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, which ->
+            dialog.dismiss()
+        }
+
+        builder.show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
