@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.code.R
 
@@ -14,6 +16,8 @@ class LoginFragment : Fragment() {
 
     lateinit var btnGoToRegister : Button
     lateinit var btnLogin:Button
+    lateinit var etUsername:EditText
+    lateinit var etPassword: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,13 @@ class LoginFragment : Fragment() {
 
         btnGoToRegister = view.findViewById(R.id.btnGoToRegister)
         btnLogin = view.findViewById(R.id.btn_login_login)
+        etUsername = view.findViewById(R.id.et_username_login)
+        etPassword = view.findViewById(R.id.et_password_login)
+
+        fun clearInput(){
+            etUsername.text.clear()
+            etPassword.text.clear()
+        }
 
         btnGoToRegister.setOnClickListener {
             val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
@@ -35,7 +46,21 @@ class LoginFragment : Fragment() {
         }
 
         btnLogin.setOnClickListener {
+            val username = etUsername.text.toString()
+            val password = etPassword.text.toString()
+
+            if(username == ""){
+                Toast.makeText(requireContext(), "Username cannot be empty!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if(password == ""){
+                Toast.makeText(requireContext(), "Password cannot be empty!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             goToActivityDashboard()
+            clearInput()
         }
     }
 
