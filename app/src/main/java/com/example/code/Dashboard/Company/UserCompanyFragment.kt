@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.marginTop
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,38 +21,45 @@ import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.code.Login.LoginFragmentDirections
 import com.example.code.R
 import com.example.code.data.source.model.Company
+import com.example.code.databinding.FragmentUserCompanyBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class UserCompanyFragment : Fragment() {
 
-    lateinit var btnAdd : FloatingActionButton
-    lateinit var rvCompany : RecyclerView
-    lateinit var layoutmanager : LayoutManager
-    lateinit var companyAdapter : CompanyAdapter
+    lateinit var binding:FragmentUserCompanyBinding
     val viewModel:UserCompanyViewModel by viewModels<UserCompanyViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_company, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_user_company,
+            container,
+            false
+        )
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnAdd = view.findViewById(R.id.btnAdd)
-        rvCompany = view.findViewById(R.id.rvCompany)
+        println("masuk")
+        val companies = ArrayList<Company>()
 
         val companyAdapter = CompanyAdapter{
             val action = UserCompanyFragmentDirections.actionGlobalCompanyDashboardFragment()
             findNavController().navigate(action)
+            println("masuk4")
             viewModel.getCompanies()
         }
+        binding.rvCompany.adapter = companyAdapter
 
-        rvCompany.adapter = companyAdapter
-
+        println("${viewModel.companies.value}")
         companyAdapter.submitList(ArrayList<Company>())
 
         val companiesObserver:Observer<List<Company>> = Observer{
@@ -60,11 +68,15 @@ class UserCompanyFragment : Fragment() {
         viewModel.companies.observe(viewLifecycleOwner, companiesObserver)
 
         viewModel.getCompanies()
+        println("${viewModel.companies.value}")
 
-        rvCompany.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rvCompany.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.rvCompany.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvCompany.addItemDecoration(
+            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        )
 
-        btnAdd.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment()
             findNavController().navigate(action)
             viewModel.getCompanies()
