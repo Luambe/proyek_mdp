@@ -30,7 +30,7 @@ class ManageApp : Application() {
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val retrofit = Retrofit.Builder().addConverterFactory(
                 MoshiConverterFactory.create(moshi)
-            ).baseUrl("http://192.168.0.10:3000/").build()
+            ).baseUrl("http://192.168.1.7:3000/").build()
 
             // Initialize services for each repository
             val announcementService = retrofit.create(AnnouncementService::class.java)

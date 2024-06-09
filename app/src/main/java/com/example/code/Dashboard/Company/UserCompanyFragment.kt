@@ -81,10 +81,10 @@ class UserCompanyFragment : Fragment() {
         inputField.hint = "Company code"
         inputField.background = requireContext().getDrawable(R.drawable.custom_edittext)
 
+        val icon = requireContext().getDrawable(R.drawable.baseline_vpn_key_24)
+        icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
 
-
-
-        inputField.marginTop
+        inputField.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
 
         builder.setView(inputField)
 

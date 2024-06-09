@@ -52,7 +52,6 @@
                     android:ems="10"
                     android:hint="Username"
                     android:inputType="text"
-                    android:padding="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
