@@ -50,14 +50,13 @@ class RegisterViewModel : ViewModel() {
         _status.value = "processing"
         viewModelScope.launch {
             try {
-                val createdUser = withContext(Dispatchers.IO) {
-                    userRepository.createUser(newUser)
-                }
+                userRepository.createUser(newUser)
+
                 _status.postValue("success")
                 _error.postValue(null)
             } catch (e: Exception) {
                 // Handle the error (e.g., show a toast or log the error)
-                _error.postValue("Failed to create user: ${e.message}")
+                _error.postValue("Failed to create user: ${e}")
             }
         }
     }

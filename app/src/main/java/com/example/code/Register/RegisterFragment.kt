@@ -57,13 +57,13 @@ class RegisterFragment : Fragment() {
 
         rbOwner.setOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
-                role = "Owner"
+                role = "owner"
             }
         }
 
         rbEmployee.setOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
-                role = "Employee"
+                role = "employee"
             }
         }
 
@@ -127,7 +127,7 @@ class RegisterFragment : Fragment() {
 
 
 
-            viewModel.register(name, username, password, confirm, email, phone, role)
+            viewModel.register(name, username, password, confirm, phone, email, role)
 
             // Dalam viewModel Anda, setelah pemanggilan register berhasil:
             viewModel.status.observe(viewLifecycleOwner, Observer { status ->

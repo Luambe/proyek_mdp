@@ -40,7 +40,7 @@ class DefaultUserRepository(
 
     suspend fun createUser(user: User) {
         val newUser = remoteDataSource.createUser(user)
-        localDataSource.userDao().insertUser(newUser)
+//        localDataSource.userDao().insertUser(newUser)
     }
 
     suspend fun updateUser(user: User) {
