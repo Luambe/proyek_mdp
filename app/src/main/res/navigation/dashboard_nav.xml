@@ -14,7 +14,11 @@
         android:id="@+id/userCompanyFragment"
         android:name="com.example.code.Dashboard.Company.UserCompanyFragment"
         android:label="fragment_user_company"
-        tools:layout="@layout/fragment_user_company" />
+        tools:layout="@layout/fragment_user_company" >
+        <action
+            android:id="@+id/action_userCompanyFragment_to_addCompanyFragment"
+            app:destination="@id/addCompanyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userHomeFragment"
         android:name="com.example.code.Dashboard.Home.UserHomeFragment"
@@ -25,4 +29,9 @@
         android:name="com.example.code.Dashboard.Profile.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" /><action android:id="@+id/action_global_userHomeFragment" app:destination="@id/userHomeFragment"/><action android:id="@+id/action_global_userCompanyFragment" app:destination="@id/userCompanyFragment"/><action android:id="@+id/action_global_userTaskFragment" app:destination="@id/userTaskFragment"/><action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment"/>
+    <fragment
+        android:id="@+id/addCompanyFragment"
+        android:name="com.example.code.AddCompany.AddCompanyFragment"
+        android:label="fragment_add_company"
+        tools:layout="@layout/fragment_add_company" />
 </navigation>

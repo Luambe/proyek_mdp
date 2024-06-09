@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
 //                return@setOnClickListener
 //            }
 
-            viewModel.getAllUser()
+//            viewModel.getAllUser()
 
 
 
@@ -78,7 +78,7 @@ class LoginFragment : Fragment() {
 //                    Toast.makeText(requireContext(), "login gagal", Toast.LENGTH_SHORT).show()
 //                }
 //            })
-//            goToActivityDashboard()
+            goToActivityDashboard()
 //            clearInput()
         }
     }
