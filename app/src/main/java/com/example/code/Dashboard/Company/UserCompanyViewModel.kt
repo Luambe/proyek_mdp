@@ -13,14 +13,34 @@ import kotlinx.coroutines.launch
 class UserCompanyViewModel : ViewModel(){
     private val companyRepository = ManageApp.companyRepository
     private val _companies = MutableLiveData<List<Company>>()
+    private val _status = MutableLiveData<String>()
 
     val companies:LiveData<List<Company>>
         get() = _companies
+
+    val status:LiveData<String>
+        get() = _status
 
     fun getCompanies(force:Boolean = false){
         viewModelScope.launch {
 //            _companies.value = companyRepository.getAllCompanies(force)
             _companies.postValue(companyRepository.getAllCompanies(force))
+        }
+    }
+
+    fun createCompanies(
+        companyName: String,
+        ownerId: String,
+        privateKey: String
+    ) {
+        viewModelScope.launch {
+            try {
+                companyRepository.createCompany(companyName, ownerId, privateKey)
+                _status.postValue("success")
+            } catch (e: Exception) {
+                // Tangani pengecualian di sini, contohnya:
+                _status.postValue("error: ${e.message}")
+            }
         }
     }
 }

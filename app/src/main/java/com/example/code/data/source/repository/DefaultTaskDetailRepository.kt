@@ -27,9 +27,19 @@ class DefaultTaskDetailRepository(
         return appDatabase.taskDetailDao().getTaskDetailById(taskDetailId)
     }
 
-    suspend fun createTaskDetail(taskDetail: TaskDetail) {
-        val newTaskDetail = remoteDataSource.createTaskDetail(taskDetail)
-        appDatabase.taskDetailDao().insertTaskDetail(newTaskDetail)
+    suspend fun createTaskDetail(
+        tdName:String,
+        tdDescription:String,
+        taskId:String,
+        tdStatus:Int
+    ) {
+        val newTaskDetail = remoteDataSource.createTaskDetail(
+            tdName,
+            tdDescription,
+            taskId,
+            tdStatus
+        )
+//        appDatabase.taskDetailDao().insertTaskDetail(newTaskDetail)
     }
 
     suspend fun updateTaskDetail(taskDetail: TaskDetail) {

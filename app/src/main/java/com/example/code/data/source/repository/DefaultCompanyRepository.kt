@@ -13,7 +13,7 @@ class DefaultCompanyRepository(
             val companies = remoteDataSource.getAllCompanies()
             remoteDataSource.deleteAllCompany()
             for (company in companies) {
-                remoteDataSource.createCompany(company)
+                localDataSource.companyDao().insertCompany(company)
             }
             companies
         }
@@ -25,10 +25,17 @@ class DefaultCompanyRepository(
     suspend fun getCompanyById(companyId: String): Company? {
         return localDataSource.companyDao().getCompanyById(companyId) ?: remoteDataSource.getCompanyById(companyId)
     }
-
-    suspend fun createCompany(company: Company) {
-        val newCompany = remoteDataSource.createCompany(company)
-        localDataSource.companyDao().insertCompany(newCompany)
+    suspend fun createCompany(
+        companyName:String,
+        ownerId:String,
+        privateKey:String
+    ) {
+        val newCompany = remoteDataSource.createCompany(
+            companyName,
+            ownerId,
+            privateKey
+        )
+//        localDataSource.companyDao().insertCompany(newCompany)
     }
 
     suspend fun updateCompany(company: Company) {

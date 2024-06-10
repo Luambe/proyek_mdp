@@ -43,7 +43,7 @@ class ManageApp : Application() {
             val userService = retrofit.create(UserService::class.java)
 
             val roomDatabase = Room.databaseBuilder(
-                context.applicationContext,
+                context,
                 AppDatabase::class.java,
                 "db_proyek_mdp"
             ).build()

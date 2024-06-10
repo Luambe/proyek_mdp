@@ -27,9 +27,12 @@ class DefaultAttendanceRepository(
         return appDatabase.attendanceDao().getAttendanceById(attendanceId)
     }
 
-    suspend fun createAttendance(attendance: Attendance) {
-        val newAttendance = remoteDataSource.createAttendance(attendance)
-        appDatabase.attendanceDao().insertAttendance(newAttendance)
+    suspend fun createAttendance(
+        userId:String,
+        attendanceStatus:String
+    ) {
+        val newAttendance = remoteDataSource.createAttendance(userId, attendanceStatus)
+//        appDatabase.attendanceDao().insertAttendance(newAttendance)
     }
 
     suspend fun updateAttendance(attendance: Attendance) {
