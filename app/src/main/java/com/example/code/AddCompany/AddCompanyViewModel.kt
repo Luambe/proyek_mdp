@@ -24,10 +24,18 @@ class AddCompanyViewModel : ViewModel() {
         }
     }
 
-    fun createCompany(company: Company){
+    fun createCompany(
+        companyName:String,
+        ownerId:String,
+        privateKey:String
+    ){
         _status.value = "processing"
         viewModelScope.launch{
-            companyRepository.createCompany(company)
+            companyRepository.createCompany(
+                companyName,
+                ownerId,
+                privateKey
+            )
             _status.postValue("success")
         }
     }

@@ -46,7 +46,7 @@ class AddCompanyFragment : Fragment() {
                 Toast.makeText(view.context, "Semua field harus diisi!", Toast.LENGTH_SHORT).show()
             }else{
                 val company = Company("6", "${et_company_name.text}", "user yang sedang login", "${et_company_pass.text}")
-                viewModel.createCompany(company)
+                viewModel.createCompany(et_company_name.text.toString(),"user yang sedang login",et_company_pass.text.toString())
             }
         }
 
