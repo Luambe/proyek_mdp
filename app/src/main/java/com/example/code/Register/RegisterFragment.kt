@@ -125,8 +125,6 @@ class RegisterFragment : Fragment() {
                 return@setOnClickListener
             }
 
-
-
             viewModel.register(name, username, password, confirm, phone, email, role)
 
             // Dalam viewModel Anda, setelah pemanggilan register berhasil:
