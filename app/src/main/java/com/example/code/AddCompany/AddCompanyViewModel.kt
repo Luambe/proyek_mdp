@@ -19,23 +19,15 @@ class AddCompanyViewModel : ViewModel() {
 
     fun getCompany(id:String){
         viewModelScope.launch {
-//            _post.value = postRepository.getPostById(id)
+//            _company.value = postRepository.getPostById(id)
             _company.postValue(companyRepository.getCompanyById(id))
         }
     }
 
-    fun createCompany(
-        companyName:String,
-        ownerId:String,
-        privateKey:String
-    ){
+    fun createCompany(company:Company){
         _status.value = "processing"
         viewModelScope.launch{
-            companyRepository.createCompany(
-                companyName,
-                ownerId,
-                privateKey
-            )
+            companyRepository.createCompany(company)
             _status.postValue("success")
         }
     }

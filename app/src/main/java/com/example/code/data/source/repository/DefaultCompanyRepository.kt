@@ -25,16 +25,8 @@ class DefaultCompanyRepository(
     suspend fun getCompanyById(companyId: String): Company? {
         return localDataSource.companyDao().getCompanyById(companyId) ?: remoteDataSource.getCompanyById(companyId)
     }
-    suspend fun createCompany(
-        companyName:String,
-        ownerId:String,
-        privateKey:String
-    ) {
-        val newCompany = remoteDataSource.createCompany(
-            companyName,
-            ownerId,
-            privateKey
-        )
+    suspend fun createCompany(company: Company) {
+        remoteDataSource.createCompany(company)
 //        localDataSource.companyDao().insertCompany(newCompany)
     }
 

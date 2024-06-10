@@ -17,11 +17,7 @@ interface CompanyService {
     suspend fun getCompanyById(@Path("company_id") companyId: String): Company
 
     @POST("api/v1/company")
-    suspend fun createCompany(
-        companyName:String,
-        ownerId:String,
-        privateKey:String
-    ): Company
+    suspend fun createCompany(company: Company) : Company
 
     @PUT("api/v1/company/{company_id}")
     suspend fun updateCompany(@Path("company_id") companyId: String, @Body updatedCompany: Company): Company

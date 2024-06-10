@@ -28,19 +28,19 @@ class UserCompanyViewModel : ViewModel(){
         }
     }
 
-    fun createCompanies(
-        companyName: String,
-        ownerId: String,
-        privateKey: String
-    ) {
-        viewModelScope.launch {
-            try {
-                companyRepository.createCompany(companyName, ownerId, privateKey)
-                _status.postValue("success")
-            } catch (e: Exception) {
-                // Tangani pengecualian di sini, contohnya:
-                _status.postValue("error: ${e.message}")
-            }
-        }
-    }
+//    fun createCompanies(
+//        companyName: String,
+//        ownerId: String,
+//        privateKey: String
+//    ) {
+//        viewModelScope.launch {
+//            try {
+//                companyRepository.createCompany(companyName, ownerId, privateKey)
+//                _status.postValue("success")
+//            } catch (e: Exception) {
+//                // Tangani pengecualian di sini, contohnya:
+//                _status.postValue("error: ${e.message}")
+//            }
+//        }
+//    }
 }

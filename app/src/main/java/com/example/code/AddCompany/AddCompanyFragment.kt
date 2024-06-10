@@ -45,14 +45,15 @@ class AddCompanyFragment : Fragment() {
             if(et_company_name.text.toString() == "" || et_company_pass.text.toString() == "" || et_company_desc.text.toString() == ""){
                 Toast.makeText(view.context, "Semua field harus diisi!", Toast.LENGTH_SHORT).show()
             }else{
-                val company = Company("6", "${et_company_name.text}", "user yang sedang login", "${et_company_pass.text}")
-                viewModel.createCompany(et_company_name.text.toString(),"user yang sedang login",et_company_pass.text.toString())
+                val company = Company("", "${et_company_name.text}", "user yang sedang login", "${et_company_pass.text}")
+                viewModel.createCompany(company)
+                Toast.makeText(view.context, "Success", Toast.LENGTH_SHORT).show()
             }
         }
 
         viewModel.status.observe(viewLifecycleOwner, Observer {
             if(it == "success"){
-                findNavController().popBackStack()
+
             }
         })
 
