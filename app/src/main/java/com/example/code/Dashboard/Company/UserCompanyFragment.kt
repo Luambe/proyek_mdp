@@ -12,43 +12,50 @@ import androidx.lifecycle.Observer
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.marginTop
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.code.Login.LoginFragmentDirections
 import com.example.code.R
 import com.example.code.data.source.model.Company
+import com.example.code.databinding.FragmentUserCompanyBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class UserCompanyFragment : Fragment() {
 
-    lateinit var btnAdd : FloatingActionButton
-    lateinit var rvCompany : RecyclerView
-    lateinit var layoutmanage : LayoutManager
-    lateinit var companyAdapter : CompanyAdapter
+    lateinit var binding:FragmentUserCompanyBinding
     val viewModel:UserCompanyViewModel by viewModels<UserCompanyViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_company, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_user_company,
+            container,
+            false
+        )
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnAdd = view.findViewById(R.id.btnAdd)
-        rvCompany = view.findViewById(R.id.rvCompany)
+        val companies = ArrayList<Company>()
 
-        companyAdapter = CompanyAdapter{
+        val companyAdapter = CompanyAdapter{
             val action = UserCompanyFragmentDirections.actionGlobalCompanyDashboardFragment()
             findNavController().navigate(action)
+            viewModel.getCompanies()
         }
-
-        rvCompany.adapter = companyAdapter
+        binding.rvCompany.adapter = companyAdapter
 
         companyAdapter.submitList(ArrayList<Company>())
 
@@ -59,9 +66,13 @@ class UserCompanyFragment : Fragment() {
 
         viewModel.getCompanies()
 
-        rvCompany.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvCompany.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvCompany.addItemDecoration(
+            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        )
 
-        btnAdd.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment()
             findNavController().navigate(action)
             viewModel.getCompanies()
@@ -81,10 +92,10 @@ class UserCompanyFragment : Fragment() {
         inputField.hint = "Company code"
         inputField.background = requireContext().getDrawable(R.drawable.custom_edittext)
 
+        val icon = requireContext().getDrawable(R.drawable.baseline_vpn_key_24)
+        icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
 
-
-
-        inputField.marginTop
+        inputField.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
 
         builder.setView(inputField)
 

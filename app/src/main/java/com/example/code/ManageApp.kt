@@ -30,7 +30,7 @@ class ManageApp : Application() {
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val retrofit = Retrofit.Builder().addConverterFactory(
                 MoshiConverterFactory.create(moshi)
-            ).baseUrl("http://192.168.0.10:3000/").build()
+            ).baseUrl("http://192.168.18.5:3000/").build()
 
             // Initialize services for each repository
             val announcementService = retrofit.create(AnnouncementService::class.java)
@@ -44,7 +44,7 @@ class ManageApp : Application() {
             val roomDatabase = Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "ManageKaryawanDB"
+                "db_proyek_mdp"
             ).build()
 
             // Initialize repositories with the respective services and database DAOs

@@ -17,7 +17,6 @@ class UserHomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_home, container, false)
-        tvWelcome = view.findViewById(R.id.tvWelcome)
         return view
     }
 
@@ -29,6 +28,5 @@ class UserHomeFragment : Fragment() {
         println("User id di homefragment : $userId")
 
         // Menampilkan userId di TextView tvWelcome
-        tvWelcome.text = "Welcome, User $userId"
     }
 }

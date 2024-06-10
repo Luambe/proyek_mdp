@@ -95,6 +95,7 @@ class DashboardActivity : AppCompatActivity() {
         builder.setMessage("Are you sure you want to logout?")
 
         builder.setPositiveButton("Logout") { dialog, which ->
+            dialog.dismiss()
             finish()
         }
 
