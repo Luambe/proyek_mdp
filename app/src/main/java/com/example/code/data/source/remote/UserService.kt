@@ -23,7 +23,7 @@ interface UserService {
     @FormUrlEncoded
     @POST("api/v1/user")
     suspend fun createUser(
-        @Field("user_name") username: String,
+        @Field("user_name") userName: String,
         @Field("user_username") userUsername: String,
         @Field("user_password") userPassword: String?,
         @Field("user_confirmation_password") userConfirmationPassword: String,

@@ -68,13 +68,13 @@ class RegisterFragment : Fragment() {
         }
 
         btnRegister.setOnClickListener{
-            etName.setText("test")
-            etUsername.setText("test123")
-            etPassword.setText("123")
-            etConfirm.setText("123")
-            etEmail.setText("test@gmail.com")
-            etPhone.setText("123123123123")
-            role = "employee"
+//            etName.setText("test")
+//            etUsername.setText("test123")
+//            etPassword.setText("123")
+//            etConfirm.setText("123")
+//            etEmail.setText("test@gmail.com")
+//            etPhone.setText("123123123123")
+//            role = "employee"
 
             var name = etName.text.toString()
             var username = etUsername.text.toString()
@@ -124,8 +124,6 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(requireContext(), "Role cannot be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-
 
             viewModel.register(name, username, password, confirm, phone, email, role)
 
