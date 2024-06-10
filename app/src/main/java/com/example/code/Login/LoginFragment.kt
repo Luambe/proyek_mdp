@@ -54,20 +54,20 @@ class LoginFragment : Fragment() {
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
 
-//            if(username == ""){
-//                Toast.makeText(requireContext(), "Username cannot be empty!", Toast.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
-//
-//            if(password == ""){
-//                Toast.makeText(requireContext(), "Password cannot be empty!", Toast.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
+            if(username == ""){
+                Toast.makeText(requireContext(), "Username cannot be empty!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-//            viewModel.getAllUser()
+            if(password == ""){
+                Toast.makeText(requireContext(), "Password cannot be empty!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-
-
+            viewModel.getAllUsers()
+            viewModel.users.observe(viewLifecycleOwner, Observer{
+                println("Nih User : ${it}")
+            })
 
             viewModel.login(username, password)
 

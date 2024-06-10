@@ -57,7 +57,6 @@ class RegisterViewModel : ViewModel() {
         )
 
 
-
         _status.value = "processing"
         viewModelScope.launch {
             try {

@@ -9,11 +9,21 @@ class DefaultUserRepository(
     private val remoteDataSource: UserService
 ) {
     suspend fun getAllUsers(forceUpdate: Boolean = false): List<User> {
+        println("tesssss")
         return if (forceUpdate) {
             val users = remoteDataSource.getAllUsers()
+            println("User dari remote : ${users}")
             localDataSource.userDao().deleteAllUsers()
             for (user in users) {
-                localDataSource.userDao().insertUser(user)
+                localDataSource.userDao().insertUser(User(
+                    userId = user.userId,
+                    userName = user.userName,
+                    userUsername = user.userUsername,
+                    userPassword = user.userPassword,
+                    userEmail = user.userEmail,
+                    userPhone = user.userPhone,
+                    userRole = user.userRole
+                ))
             }
             users
         } else {
@@ -57,7 +67,17 @@ class DefaultUserRepository(
             userRole
         )
 
-//        localDataSource.userDao().insertUser(newUser)
+        val user = User(
+            userId = newUser.userId,
+            userName = newUser.userName,
+            userUsername = newUser.userUsername,
+            userPassword = newUser.userPassword,
+            userEmail = newUser.userEmail,
+            userPhone = newUser.userPhone,
+            userRole = newUser.userRole
+            )
+
+        localDataSource.userDao().insertUser(user)
     }
 
     suspend fun updateUser(user: User) {
