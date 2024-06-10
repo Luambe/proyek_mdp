@@ -38,8 +38,25 @@ class DefaultUserRepository(
         return remoteDataSource.getUserByIdAndPassword(username,password)
     }
 
-    suspend fun createUser(user: User) {
-        val newUser = remoteDataSource.createUser(user)
+    suspend fun createUser(
+        userName: String,
+        userUsername: String,
+        userPassword: String?,
+        userConfirmationPassword: String,
+        userPhone: String,
+        userEmail: String,
+        userRole: String
+    ) {
+        val newUser = remoteDataSource.createUser(
+            userName,
+            userUsername,
+            userPassword,
+            userConfirmationPassword,
+            userPhone,
+            userEmail,
+            userRole
+        )
+
 //        localDataSource.userDao().insertUser(newUser)
     }
 

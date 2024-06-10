@@ -134,6 +134,7 @@ class RegisterFragment : Fragment() {
                 if (status == "success") {
                     // Tampilkan pesan toast jika pendaftaran berhasil
                     Toast.makeText(requireContext(), "Registration successful!", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
                 }else{
                     Toast.makeText(requireContext(), "Registration Failed!", Toast.LENGTH_SHORT).show()
                     viewModel.error.observe(viewLifecycleOwner, Observer { error ->

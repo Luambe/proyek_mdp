@@ -32,6 +32,14 @@ class RegisterViewModel : ViewModel() {
         userEmail: String,
         userRole: String
     ) {
+        println("Name: $userName")
+        println("Username: $userUsername")
+        println("Password: $userPassword")
+        println("Confirmation Password: $userConfirmationPassword")
+        println("Phone: $userPhone")
+        println("Email: $userEmail")
+        println("Role: $userRole")
+
         // Validate input before proceeding
         if (userPassword != userConfirmationPassword) {
             _error.value = "Passwords do not match"
@@ -47,10 +55,21 @@ class RegisterViewModel : ViewModel() {
             userEmail = userEmail,
             userRole = userRole
         )
+
+
+
         _status.value = "processing"
         viewModelScope.launch {
             try {
-                userRepository.createUser(newUser)
+                userRepository.createUser(
+                    userName,
+                    userUsername,
+                    userPassword,
+                    userConfirmationPassword,
+                    userPhone,
+                    userEmail,
+                    userRole
+                )
 
                 _status.postValue("success")
                 _error.postValue(null)
