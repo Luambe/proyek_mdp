@@ -1,6 +1,7 @@
 package com.example.code.data.source.remote
 
 import com.example.code.data.source.model.Company
+import com.example.code.data.source.model.User
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -41,4 +42,7 @@ interface CompanyService {
 
     @DELETE("api/v1/company/")
     fun deleteAllCompany()
+
+    @GET("api/v1/company/employee/:company_id")
+    fun getEmployeeByCompanyId(@Path("company_id") companyId: String):List<User?>
 }

@@ -82,12 +82,20 @@
         android:id="@+id/taskMenuFragment"
         android:name="com.example.code.TaskMenu.TaskMenuFragment"
         android:label="fragment_task_menu"
-        tools:layout="@layout/fragment_task_menu" />
+        tools:layout="@layout/fragment_task_menu" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.example.code.TaskList.TaskListFragment"
         android:label="fragment_task_list"
-        tools:layout="@layout/fragment_task_list" />
+        tools:layout="@layout/fragment_task_list" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <action
         android:id="@+id/action_global_taskListFragment"
         app:destination="@id/taskListFragment" />
@@ -123,7 +131,11 @@
         android:id="@+id/addTaskFragment"
         android:name="com.example.code.AddTask.AddTaskFragment"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_add_task" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <action
         android:id="@+id/action_global_addTaskFragment"
         app:destination="@id/addTaskFragment" />

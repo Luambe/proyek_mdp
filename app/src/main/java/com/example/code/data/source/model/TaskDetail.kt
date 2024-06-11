@@ -23,5 +23,5 @@ data class TaskDetail(
     @Json(name = "task_id") val taskId: String?,
 
     @ColumnInfo(name = "td_status")
-    @Json(name = "td_status") val tdStatus: Int?
+    @Json(name = "td_status") val tdStatus: Boolean
 )

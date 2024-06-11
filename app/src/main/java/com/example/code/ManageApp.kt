@@ -30,10 +30,10 @@ class ManageApp : Application() {
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val retrofit = Retrofit.Builder().addConverterFactory(
                 MoshiConverterFactory.create(moshi)
-            ).baseUrl("http://192.168.18.5:3000/").build() // punya rama
+//            ).baseUrl("http://192.168.18.5:3000/").build() // punya rama
 //            ).baseUrl("http://192.168.1.3:3000/").build() //Punya Nick
 //            ).baseUrl("http://192.168.1.3:3000/").build() //Punya steven
-//            ).baseUrl("http://192.168.1.5:3000/").build() //Punya Melvin
+            ).baseUrl("http://192.168.1.5:3000/").build() //Punya Melvin
 
 
 
@@ -49,7 +49,7 @@ class ManageApp : Application() {
             val roomDatabase = Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
-                "db_proyek_mdp3"
+                "db_proyek_mdp4"
             ).build()
 
             // Initialize repositories with the respective services and database DAOs

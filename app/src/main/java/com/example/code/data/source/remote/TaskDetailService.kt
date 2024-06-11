@@ -23,7 +23,7 @@ interface TaskDetailService {
         @Field("td_name") tdName: String,
         @Field("td_description") tdDescription: String,
         @Field("task_id") taskId: String,
-        @Field("td_status") tdStatus: Int
+        @Field("td_status") tdStatus: Boolean
     ): TaskDetail
 
     @PUT("api/v1/taskdetail/{td_id}")
