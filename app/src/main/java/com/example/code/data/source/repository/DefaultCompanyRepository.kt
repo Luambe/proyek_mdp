@@ -1,6 +1,7 @@
 package com.example.code.data.source.repository
 
 import com.example.code.data.source.local.AppDatabase
+import com.example.code.data.source.model.Announcement
 import com.example.code.data.source.model.Company
 import com.example.code.data.source.model.User
 import com.example.code.data.source.remote.CompanyService
@@ -71,9 +72,10 @@ class DefaultCompanyRepository(
         localDataSource.companyDao().insertCompany(company)
     }
 
-    suspend fun updateCompany(company: Company) {
-        val newCompany = remoteDataSource.updateCompany(company.companyId, company)
-        localDataSource.companyDao().insertCompany(newCompany)
+    suspend fun updateCompany(companyId: String,companyName: String, ownerId: String, privateKey: String,announcement: String): Company? {
+        val newCompany = remoteDataSource.updateCompany(companyId,companyName, ownerId, privateKey, announcement)
+
+        return localDataSource.companyDao().getCompanyById(newCompany.companyId)
     }
 
     suspend fun deleteCompany(companyId: String) {

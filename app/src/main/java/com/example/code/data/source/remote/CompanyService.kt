@@ -26,8 +26,15 @@ interface CompanyService {
         @Field("private_key") privateKey: String
     ) : Company
 
+    @FormUrlEncoded
     @PUT("api/v1/company/{company_id}")
-    suspend fun updateCompany(@Path("company_id") companyId: String, @Body updatedCompany: Company): Company
+    suspend fun updateCompany(
+        @Path("company_id") companyId: String,
+        @Field("company_name") companyName: String,
+        @Field("owner_id") ownerId: String,
+        @Field("private_key") privateKey: String,
+        @Field("announcement") announcement: String
+    ): Company
 
     @DELETE("api/v1/company/{company_id}")
     suspend fun deleteCompany(@Path("company_id") companyId: String)

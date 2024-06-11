@@ -11,11 +11,16 @@ class DefaultTaskRepository(
     suspend fun getAllTasks(forceUpdate: Boolean = false): List<Task> {
         return if (forceUpdate) {
             val tasks = remoteDataSource.getAllTasks()
-            appDatabase.taskDao().apply {
-                deleteAllTasks()
-                for (task in tasks) {
-                    insertTask(task)
-                }
+            appDatabase.taskDao().deleteAllTasks()
+            for (task in tasks){
+                appDatabase.taskDao().insertTask(Task(
+                    taskId = task .taskId,
+                    taskName = task.taskName,
+                    taskDescription = task.taskDescription,
+                    employeeId = task.employeeId,
+                    managerId = task.managerId,
+                    taskStatus = task.taskStatus
+                ))
             }
             tasks
         } else {
@@ -33,11 +38,19 @@ class DefaultTaskRepository(
         employeeId: String,
         managerId: String,
         taskStatus: Int
-    ) {
+    ): Task? {
         val newTask = remoteDataSource.createTask(
             taskName,taskDescription,employeeId,managerId,taskStatus
         )
-//        appDatabase.taskDao().insertTask(newTask)
+
+        return appDatabase.taskDao().insertTask(Task(
+            taskId = newTask.taskId,
+            taskName = newTask.taskName,
+            taskDescription = newTask.taskDescription,
+            employeeId = newTask.employeeId,
+            managerId = newTask.managerId,
+            taskStatus = newTask.taskStatus
+        ))
     }
 
     suspend fun updateTask(task: Task) {
