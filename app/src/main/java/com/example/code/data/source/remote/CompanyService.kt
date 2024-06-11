@@ -44,5 +44,5 @@ interface CompanyService {
     fun deleteAllCompany()
 
     @GET("api/v1/company/employee/{company_id}")
-    fun getEmployeeByCompanyId(@Path("company_id") companyId: String):List<User?>
+    suspend fun getEmployeeFromCompany(@Path("company_id") companyId: String):List<User>
 }

@@ -8,84 +8,34 @@ import com.example.code.ManageApp
 import com.example.code.data.source.model.Company
 import com.example.code.data.source.model.Task
 import com.example.code.data.source.model.User
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class AddTaskViewModel : ViewModel() {
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?>
-        get() = _error
 
-    private val _status: MutableLiveData<String> = MutableLiveData<String>("idle")
-    val status: LiveData<String>
+    private val taskRepository = ManageApp.taskRepository
+    private val companyRepository = ManageApp.companyRepository
+    private val userRepository = ManageApp.userRepository
+    private val _status = MutableLiveData<String?>(null)
+    private val _user = MutableLiveData<User>()
+    private val _company = MutableLiveData<Company>()
+    private val _employee = MutableLiveData<List<User>>()
+    private val _task = MutableLiveData<Task?>(null)
+
+    val task: LiveData<Task?>
+        get() = _task
+
+    val status: LiveData<String?>
         get() = _status
 
-
-    //USER
-    private val userRepository = ManageApp.userRepository
-    private val _user = MutableLiveData<User>() // Ubah tipe data menjadi MutableLiveData<List<User>>
-    val user: LiveData<User> // Ubah tipe LiveData menjadi List<User>
+    val user: LiveData<User>
         get() = _user
 
-    fun getUserById(userId: String) {
-        viewModelScope.launch {
-            _user.postValue(userRepository.getUserById(userId))
-        }
-    }
 
-
-    //COMPANY
-    private val companyRepository = ManageApp.companyRepository
-    private val _company = MutableLiveData<Company?>(null)
-    private val _users = MutableLiveData<List<User?>>(null)
-
-    val company:LiveData<Company?>
+    val company: LiveData<Company>
         get() = _company
 
-    val users:LiveData<List<User?>>
-        get() = _users
-
-    fun getCompany(id:String){
-        viewModelScope.launch {
-            _company.postValue(companyRepository.getCompanyById(id))
-        }
-    }
-
-    fun getEmployee(companyId: String){
-        viewModelScope.launch {
-            _users.postValue(companyRepository.getEmployeeByCompanyId(companyId))
-        }
-    }
-
-
-    //TASK
-    private val taskRepository = ManageApp.taskRepository
-
-    fun createTask(
-        taskName: String,
-        taskDescription: String,
-        employeeId: String,
-        managerId: String,
-        taskStatus: Int
-    ){
-        _status.value = "processing"
-        viewModelScope.launch{
-            println(taskName)
-            println(taskDescription)
-            println(employeeId)
-            println(managerId)
-            println(taskStatus)
-            taskRepository.createTask(
-                taskName,
-                taskDescription,
-                employeeId,
-                managerId,
-                taskStatus
-            )
-            _status.postValue("success")
-        }
-    }
+    val employee: LiveData<List<User>>
+        get() = _employee
 
     fun getAllTask(
         taskName: String,
@@ -96,6 +46,45 @@ class AddTaskViewModel : ViewModel() {
     ){
         viewModelScope.launch {
 //            _task.postValue(taskRepository.createTask(taskName, taskDescription, employeeId, managerId, taskStatus))
+        }
+    }
+
+    fun createTask(
+        taskName: String,
+        taskDescription: String,
+        employeeId: String,
+        managerId: String,
+        taskStatus: Int
+    ){
+        viewModelScope.launch {
+            _task.postValue(taskRepository.createTask(taskName, taskDescription, employeeId, managerId, taskStatus))
+        }
+    }
+
+    fun getCompany(id:String){
+        viewModelScope.launch {
+            _company.postValue(companyRepository.getCompanyById(id))
+        }
+    }
+
+    fun getUserById(userId: String) {
+        viewModelScope.launch {
+            _user.postValue(userRepository.getUserById(userId))
+        }
+    }
+
+
+    fun getEmployee(companyId: String){
+        viewModelScope.launch{
+            try {
+                val employees = companyRepository.getEmployeeFromCompany(companyId)
+                _employee.postValue(employees)
+            } catch (e: Exception) {
+                // Log the exception
+                e.printStackTrace()
+                // Optionally update the status LiveData to notify observers of the error
+                _status.postValue("Failed to fetch employees: ${e.message}")
+            }
         }
     }
 }

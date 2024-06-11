@@ -83,7 +83,7 @@ class DefaultCompanyRepository(
         localDataSource.companyDao().deleteCompanyById(companyId)
     }
 
-    suspend fun getEmployeeByCompanyId(companyId: String):List<User?>{
-        return remoteDataSource.getEmployeeByCompanyId(companyId)
+    suspend fun getEmployeeFromCompany(companyId: String): List<User>{
+        return remoteDataSource.getEmployeeFromCompany(companyId)
     }
 }

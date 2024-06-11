@@ -92,7 +92,7 @@ class AddTaskFragment : Fragment() {
             println("company id: ${companyId}")
             viewModel.getEmployee(companyId.toString())
 
-            viewModel.users.observe(viewLifecycleOwner, Observer{
+            viewModel.employee.observe(viewLifecycleOwner, Observer{
                 for (i in it){
                     try {
                         viewModel.createTask(name, desc, i!!.userId, userId, 0)
