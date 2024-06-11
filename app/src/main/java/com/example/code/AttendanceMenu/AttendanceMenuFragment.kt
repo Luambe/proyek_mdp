@@ -34,6 +34,7 @@ class AttendanceMenuFragment : Fragment() {
 
         card_absence = view.findViewById(R.id.card_absence)
         card_manage_attendance = view.findViewById(R.id.card_manage_attendance)
+        btn_back_company_dashboard = view.findViewById(R.id.btn_back_company_dashboard)
 
         val userId = AttendanceMenuFragmentArgs.fromBundle(requireArguments()).userId
 
