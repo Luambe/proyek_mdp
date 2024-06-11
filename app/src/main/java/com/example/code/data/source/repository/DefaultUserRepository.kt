@@ -47,6 +47,8 @@ class DefaultUserRepository(
                 userRole = user.userRole
             ))
         }
+        println("Debug 5")
+        println(localDataSource.userDao().getUserById(userId))
         return localDataSource.userDao().getUserById(userId)
     }
 

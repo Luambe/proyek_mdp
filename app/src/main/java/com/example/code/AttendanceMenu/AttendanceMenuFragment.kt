@@ -18,6 +18,7 @@ class AttendanceMenuFragment : Fragment() {
 
     private lateinit var viewModel: AttendanceMenuViewModel
     lateinit var card_absence:CardView
+    lateinit var card_manage_attendance:CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +31,20 @@ class AttendanceMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         card_absence = view.findViewById(R.id.card_absence)
+        card_manage_attendance = view.findViewById(R.id.card_manage_attendance)
 
         val userId = AttendanceMenuFragmentArgs.fromBundle(requireArguments()).userId
 
         card_absence.setOnClickListener {
             userId?.let { safeUserId ->
                 val action = AttendanceMenuFragmentDirections.actionGlobalAbsenceFragment2(safeUserId)
+                findNavController().navigate(action)
+            }
+        }
+
+        card_manage_attendance.setOnClickListener {
+            userId?.let { safeUserId ->
+                val action = AttendanceMenuFragmentDirections.actionGlobalManageAttendanceFragment(safeUserId)
                 findNavController().navigate(action)
             }
         }

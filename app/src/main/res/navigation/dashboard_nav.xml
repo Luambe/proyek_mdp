@@ -59,7 +59,11 @@
         android:id="@+id/manageAttendanceFragment"
         android:name="com.example.code.ManageAttendance.ManageAttendanceFragment"
         android:label="fragment_manage_attendance"
-        tools:layout="@layout/fragment_manage_attendance" />
+        tools:layout="@layout/fragment_manage_attendance" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <action
         android:id="@+id/action_global_manageAttendanceFragment"
         app:destination="@id/manageAttendanceFragment" />
