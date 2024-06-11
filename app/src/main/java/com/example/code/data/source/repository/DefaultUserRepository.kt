@@ -22,6 +22,7 @@ class DefaultUserRepository(
                     userPassword = user.userPassword,
                     userEmail = user.userEmail,
                     userPhone = user.userPhone,
+                    companyId = user.companyId,
                     userRole = user.userRole
                 ))
             }
@@ -42,6 +43,7 @@ class DefaultUserRepository(
                 userPassword = user.userPassword,
                 userEmail = user.userEmail,
                 userPhone = user.userPhone,
+                companyId = user.companyId,
                 userRole = user.userRole
             ))
         }
