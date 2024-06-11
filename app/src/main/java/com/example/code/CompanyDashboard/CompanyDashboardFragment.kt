@@ -32,8 +32,8 @@ class CompanyDashboardFragment : Fragment() {
     lateinit var btnCencel: Button
 
     var announcement_text: String = ""
-    var companyId: String = "bc0f9eeb-09d3-4d31-9a61-1dcb328de5a9"
     var nowedit: Boolean = false
+    var companyId: String = "81efffff-b3f5-477e-9507-d338b584e36a"
     val viewModel:CompanyDashboardViewModel by viewModels<CompanyDashboardViewModel>()
 //    val navArgs:CompanyDashboardArgs by navArgs()
 
@@ -66,8 +66,8 @@ class CompanyDashboardFragment : Fragment() {
             etAnnouncement.setText(announcement_text)
         })
 
-//        val userId = UserProfileFragmentArgs.fromBundle(requireArguments()).userId
-        val userId = "ASUKAMU"
+        val userId = CompanyDashboardFragmentArgs.fromBundle(requireArguments()).userId
+
 
         btn_back_main_menu.setOnClickListener {
             findNavController().popBackStack()
