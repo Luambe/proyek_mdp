@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.marginTop
 import androidx.databinding.DataBindingUtil
@@ -51,17 +52,89 @@ class UserCompanyFragment : Fragment() {
 
         val userId = UserCompanyFragmentArgs.fromBundle(requireArguments()).userId
 
+        viewModel.getUserById(userId)
+
+        var role = ""
+
+        viewModel.user.observe(viewLifecycleOwner, Observer{
+            if(it.userRole != null) {
+                role = it.userRole
+            }
+        })
+
         binding.btnAdd.setOnClickListener {
             val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment(userId)
             findNavController().navigate(action)
             viewModel.getCompanies()
 
-//            showInputDialog() { userInput ->
-//                Toast.makeText(requireContext(), "You entered: $userInput", Toast.LENGTH_SHORT).show()
-//            }
+            if(role == "owner"){
+                showInputDialogOwner() { companyName, companyKey ->
+                    Toast.makeText(requireContext(), "name: $companyName, key:$companyKey ", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }else if(role == "employee"){
+                showInputDialogEmployee() { userInput ->
+                    Toast.makeText(requireContext(), "You entered: $userInput", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
     }
-    private fun showInputDialog(onInputReceived: (String) -> Unit) {
+    private fun showInputDialogOwner(onInputReceived: (String, String) -> Unit) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Enter company code")
+
+//        INPUT COMPANY NAME
+        val inputName = EditText(requireContext())
+        inputName.hint = "Company name"
+        inputName.background = requireContext().getDrawable(R.drawable.custom_edittext)
+
+        val icon = requireContext().getDrawable(R.drawable.ic_baseline_person_24)
+        icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
+
+        inputName.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+
+//        INPUT COMPANY SECRET KEY
+        val inputKey = EditText(requireContext())
+        inputKey.hint = "Company secret key"
+        inputKey.background = requireContext().getDrawable(R.drawable.custom_edittext)
+
+        val icon2 = requireContext().getDrawable(R.drawable.baseline_vpn_key_24)
+        icon2?.setBounds(0, 0, icon2.intrinsicWidth, icon2.intrinsicHeight)
+
+        inputKey.setCompoundDrawablesWithIntrinsicBounds(icon2, null, null, null)
+
+//         Create Layout
+        val layout = LinearLayout(requireContext())
+        layout.orientation = LinearLayout.VERTICAL
+
+        val paddingDP = (16 * resources.displayMetrics.density).toInt()
+        layout.setPadding(paddingDP, paddingDP, paddingDP, paddingDP) // Set padding for the layout
+
+//         Add the EditTexts to the LinearLayout
+        layout.addView(inputName)
+        layout.addView(inputKey)
+
+        builder.setView(layout)
+
+        builder.setPositiveButton("OK") { dialog, which ->
+            val inputName = inputName.text.toString().trim()
+            val inputKey = inputKey.text.toString().trim()
+            onInputReceived(inputName, inputKey) // Pass the entered text to the callback
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, which ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.window?.setBackgroundDrawable(requireContext().getDrawable(R.drawable.custom_popup))
+
+        dialog.show()
+    }
+
+    private fun showInputDialogEmployee(onInputReceived: (String) -> Unit) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Enter company code")
 
@@ -76,9 +149,6 @@ class UserCompanyFragment : Fragment() {
 
         builder.setView(inputField)
 
-        val dialog = builder.create()
-        dialog.window?.setBackgroundDrawable(requireContext().getDrawable(R.drawable.custom_popup))
-
         builder.setPositiveButton("OK") { dialog, which ->
             val inputText = inputField.text.toString().trim()
             onInputReceived(inputText) // Pass the entered text to the callback
@@ -88,6 +158,9 @@ class UserCompanyFragment : Fragment() {
         builder.setNegativeButton("Cancel") { dialog, which ->
             dialog.dismiss()
         }
+        val dialog = builder.create()
+
+        dialog.window?.setBackgroundDrawable(requireContext().getDrawable(R.drawable.custom_popup))
 
         dialog.show()
     }

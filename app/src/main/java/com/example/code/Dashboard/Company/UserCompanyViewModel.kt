@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.code.ManageApp
 import com.example.code.data.source.model.Company
+import com.example.code.data.source.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,4 +44,19 @@ class UserCompanyViewModel : ViewModel(){
 //            }
 //        }
 //    }
+
+    private val userRepository = ManageApp.userRepository
+    private val _user = MutableLiveData<User>() // Ubah tipe data menjadi MutableLiveData<List<User>>
+    val user: LiveData<User> // Ubah tipe LiveData menjadi List<User>
+        get() = _user
+
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?>
+        get() = _error
+
+    fun getUserById(userId: String) {
+        viewModelScope.launch {
+            _user.postValue(userRepository.getUserById(userId))
+        }
+    }
 }

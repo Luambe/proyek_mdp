@@ -22,20 +22,6 @@ class UserProfileViewModel : ViewModel() {
     val status: LiveData<String>
         get() = _status
 
-//    fun getUserById(userId: String) {
-//        viewModelScope.launch {
-//            val user = userRepository.getUserById(userId)
-//            if(user != null){
-//                _user.postValue(listOf(user))
-//            }
-//        }
-//    }
-//    fun getUserById(userId: String, callback: (user: User?) -> Unit) {
-//        viewModelScope.launch {
-//            val user = userRepository.getUserById(userId)
-//            callback(user)
-//        }
-//    }
     fun getUserById(userId: String) {
         viewModelScope.launch {
             _user.postValue(userRepository.getUserById(userId))
