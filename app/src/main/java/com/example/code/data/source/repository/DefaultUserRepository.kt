@@ -80,8 +80,8 @@ class DefaultUserRepository(
         localDataSource.userDao().insertUser(user)
     }
 
-    suspend fun updateUser(userId: String, userUsername: String, userEmail: String, userPhone: String){
-        remoteDataSource.updateUser(userId, userUsername, userPhone, userEmail)
+    suspend fun updateUser(userId: String, userUsername: String, userEmail: String, userPhone: String):User{
+        return remoteDataSource.updateUser(userId, userUsername, userPhone, userEmail)
     }
 
     suspend fun updateUserRole(user: User) {
