@@ -80,9 +80,13 @@ class DefaultUserRepository(
         localDataSource.userDao().insertUser(user)
     }
 
-    suspend fun updateUser(user: User) {
-        val newUser = remoteDataSource.updateUser(user.userId, user)
-        localDataSource.userDao().insertUser(newUser)
+    suspend fun updateUser(userId: String, userUsername: String, userEmail: String, userPhone: String){
+        remoteDataSource.updateUser(userId, userUsername, userPhone, userEmail)
+    }
+
+    suspend fun updateUserRole(user: User) {
+//        val newUser = remoteDataSource.updateUser(user.userId, user)
+//        localDataSource.userDao().insertUser(newUser)
     }
 
     suspend fun deleteUser(user: User) {
