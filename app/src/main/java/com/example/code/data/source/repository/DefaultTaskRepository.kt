@@ -43,7 +43,7 @@ class DefaultTaskRepository(
             taskName,taskDescription,employeeId,managerId,taskStatus
         )
 
-        return appDatabase.taskDao().insertTask(Task(
+        appDatabase.taskDao().insertTask(Task(
             taskId = newTask.taskId,
             taskName = newTask.taskName,
             taskDescription = newTask.taskDescription,
@@ -51,6 +51,8 @@ class DefaultTaskRepository(
             managerId = newTask.managerId,
             taskStatus = newTask.taskStatus
         ))
+
+        return appDatabase.taskDao().getTaskById(newTask.taskId)
     }
 
     suspend fun updateTask(task: Task) {
