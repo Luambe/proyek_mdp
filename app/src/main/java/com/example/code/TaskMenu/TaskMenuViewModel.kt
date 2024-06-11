@@ -5,15 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.code.ManageApp
+import com.example.code.data.source.model.Company
 import com.example.code.data.source.model.User
 import kotlinx.coroutines.launch
 
 class TaskMenuViewModel : ViewModel() {
-    private val taskRepository = ManageApp.taskRepository
-    private val _user = MutableLiveData<User?>(null)
-    val user: LiveData<User?>
-        get() = _user
-
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?>
         get() = _error
@@ -21,6 +17,37 @@ class TaskMenuViewModel : ViewModel() {
     private val _status: MutableLiveData<String> = MutableLiveData<String>("idle")
     val status: LiveData<String>
         get() = _status
+
+
+    //USER
+    private val userRepository = ManageApp.userRepository
+    private val _user = MutableLiveData<User>() // Ubah tipe data menjadi MutableLiveData<List<User>>
+    val user: LiveData<User> // Ubah tipe LiveData menjadi List<User>
+        get() = _user
+
+    fun getUserById(userId: String) {
+        viewModelScope.launch {
+            _user.postValue(userRepository.getUserById(userId))
+        }
+    }
+
+
+    //COMPANY
+    private val companyRepository = ManageApp.companyRepository
+    private val _company = MutableLiveData<Company?>(null)
+
+    val company:LiveData<Company?>
+        get() = _company
+
+    fun getCompany(id:String){
+        viewModelScope.launch {
+            _company.postValue(companyRepository.getCompanyById(id))
+        }
+    }
+
+
+    //TASK
+    private val taskRepository = ManageApp.taskRepository
 
     fun createNewTask(
         taskName: String,
@@ -44,3 +71,4 @@ class TaskMenuViewModel : ViewModel() {
         }
     }
 }
+

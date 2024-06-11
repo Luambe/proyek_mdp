@@ -150,8 +150,11 @@ class CompanyDashboardFragment : Fragment() {
         }
 
         card_task.setOnClickListener {
-            val action = CompanyDashboardFragmentDirections.actionGlobalTaskMenuFragment()
-            findNavController().navigate(action)
+            userId?.let { safeUserId ->
+                val action =
+                    CompanyDashboardFragmentDirections.actionGlobalTaskMenuFragment(safeUserId)
+                findNavController().navigate(action)
+            }
         }
 
         card_employee.setOnClickListener {

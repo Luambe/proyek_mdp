@@ -25,7 +25,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/tv_company_taskMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -115,7 +115,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/btn_back_dashboard_task"
+            android:id="@+id/btn_back_taskMenu"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
