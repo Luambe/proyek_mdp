@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ class AttendanceMenuFragment : Fragment() {
     private lateinit var viewModel: AttendanceMenuViewModel
     lateinit var card_absence:CardView
     lateinit var card_manage_attendance:CardView
+    lateinit var btn_back_company_dashboard:Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +47,13 @@ class AttendanceMenuFragment : Fragment() {
         card_manage_attendance.setOnClickListener {
             userId?.let { safeUserId ->
                 val action = AttendanceMenuFragmentDirections.actionGlobalManageAttendanceFragment(safeUserId)
+                findNavController().navigate(action)
+            }
+        }
+
+        btn_back_company_dashboard.setOnClickListener {
+            userId?.let { safeUserId ->
+                val action = AttendanceMenuFragmentDirections.actionGlobalCompanyDashboardFragment(safeUserId)
                 findNavController().navigate(action)
             }
         }
