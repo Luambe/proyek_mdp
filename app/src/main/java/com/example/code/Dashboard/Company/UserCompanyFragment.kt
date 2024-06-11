@@ -55,22 +55,43 @@ class UserCompanyFragment : Fragment() {
         viewModel.getUserById(userId)
 
         var role = ""
+        var company: String?= null
 
         viewModel.user.observe(viewLifecycleOwner, Observer{
             if(it.userRole != null) {
                 role = it.userRole
+                company = it.companyId
             }
         })
 
+        println(company)
+
+        if(company != null) binding.btnAdd.visibility = View.GONE
+
         binding.btnAdd.setOnClickListener {
-            val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment(userId)
-            findNavController().navigate(action)
-            viewModel.getCompanies()
+//            val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment(userId)
+//            findNavController().navigate(action)
+//            viewModel.getCompanies()
 
             if(role == "owner"){
                 showInputDialogOwner() { companyName, companyKey ->
-                    Toast.makeText(requireContext(), "name: $companyName, key:$companyKey ", Toast.LENGTH_SHORT)
-                        .show()
+                    if(companyName == ""){
+                        Toast.makeText(requireContext(), "Company Name cannot be empty!", Toast.LENGTH_SHORT).show()
+                        return@showInputDialogOwner
+                    }
+
+                    if(companyKey == "" ){
+                        Toast.makeText(requireContext(), "Company Name cannot be empty!", Toast.LENGTH_SHORT).show()
+                        return@showInputDialogOwner
+                    }
+
+                    try {
+                        viewModel.createCompany(companyName, userId, companyKey)
+                        Toast.makeText(view.context, "Success", Toast.LENGTH_SHORT).show()
+                    }catch (e: Exception){
+                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             }else if(role == "employee"){
                 showInputDialogEmployee() { userInput ->
@@ -80,6 +101,7 @@ class UserCompanyFragment : Fragment() {
             }
         }
     }
+
     private fun showInputDialogOwner(onInputReceived: (String, String) -> Unit) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Enter company code")

@@ -12,8 +12,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 class UserCompanyViewModel : ViewModel(){
+    //COMPANY
     private val companyRepository = ManageApp.companyRepository
     private val _companies = MutableLiveData<List<Company>>()
+    private val _company = MutableLiveData<Company?>(null)
     private val _status = MutableLiveData<String>()
 
     val companies:LiveData<List<Company>>
@@ -24,27 +26,33 @@ class UserCompanyViewModel : ViewModel(){
 
     fun getCompanies(force:Boolean = false){
         viewModelScope.launch {
-//            _companies.value = companyRepository.getAllCompanies(force)
             _companies.postValue(companyRepository.getAllCompanies(force))
         }
     }
 
-//    fun createCompanies(
-//        companyName: String,
-//        ownerId: String,
-//        privateKey: String
-//    ) {
-//        viewModelScope.launch {
-//            try {
-//                companyRepository.createCompany(companyName, ownerId, privateKey)
-//                _status.postValue("success")
-//            } catch (e: Exception) {
-//                // Tangani pengecualian di sini, contohnya:
-//                _status.postValue("error: ${e.message}")
-//            }
-//        }
-//    }
+    val company:LiveData<Company?>
+        get() = _company
 
+    fun getCompany(id:String){
+        viewModelScope.launch {
+//            _company.value = postRepository.getPostById(id)
+            _company.postValue(companyRepository.getCompanyById(id))
+        }
+    }
+
+    fun createCompany(companyName: String, ownerId: String, privateKey: String){
+        _status.value = "processing"
+        viewModelScope.launch{
+            println(companyName)
+            println(ownerId)
+            println(privateKey)
+            companyRepository.createCompany(companyName, ownerId, privateKey)
+            _status.postValue("success")
+        }
+    }
+
+
+    //USER
     private val userRepository = ManageApp.userRepository
     private val _user = MutableLiveData<User>() // Ubah tipe data menjadi MutableLiveData<List<User>>
     val user: LiveData<User> // Ubah tipe LiveData menjadi List<User>
