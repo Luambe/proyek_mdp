@@ -10,6 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import java.security.PrivateKey
 
 interface UserService {
     @GET("api/v1/user")
@@ -43,8 +44,12 @@ interface UserService {
     @DELETE("api/v1/user/{user_id}")
     suspend fun deleteUser(@Path("user_id") userId: String?)
 
+    @FormUrlEncoded
     @POST("api/v1/user/request")
-    suspend fun joinToCompany()
+    suspend fun joinToCompany(
+        @Field("user_id") userId: String,
+        @Field("private_key") privateKey: String,
+    )
 
     @PUT("api/v1/user/promote/{user_id}")
     suspend fun promoteToManager(@Path("user_id") userId: String)

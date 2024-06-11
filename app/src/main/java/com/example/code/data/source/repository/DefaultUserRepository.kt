@@ -4,6 +4,7 @@ import com.example.code.data.source.local.AppDatabase
 import com.example.code.data.source.model.User
 import com.example.code.data.source.remote.UserService
 import com.example.code.data.utils.UserUpdateRequest
+import java.security.PrivateKey
 
 class DefaultUserRepository(
     private val localDataSource: AppDatabase,
@@ -101,5 +102,9 @@ class DefaultUserRepository(
     suspend fun deleteUser(user: User) {
         remoteDataSource.deleteUser(user.userId)
         localDataSource.userDao().deleteUser(user.userId)
+    }
+
+    suspend fun joinToCompany(userId:String, privateKey: String){
+        remoteDataSource.joinToCompany(userId, privateKey)
     }
 }
