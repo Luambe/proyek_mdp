@@ -30,9 +30,20 @@ class CompanyDashboardViewModel : ViewModel() {
             val company = withContext(Dispatchers.IO) {
                 companyRepository.getCompanyById(companyId)
             }
-            println("coba munculin get announcementnya : $company")
             _company.postValue(company)
             _announcement.postValue(company?.announcement.toString())
+        }
+    }
+
+    fun updateAnnouncement(companyId: String, announcementText: String){
+        _status.value = "processing"
+        viewModelScope.launch {
+            val company = withContext(Dispatchers.IO) {
+                companyRepository.getCompanyById(companyId)
+            }
+            _company.postValue(company)
+            companyRepository.updateCompany(company?.companyId.toString(), company?.companyName.toString(), company?.ownerId.toString(), company?.privateKey.toString(), announcementText)
+            _status.postValue("success")
         }
     }
 }
