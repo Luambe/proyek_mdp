@@ -34,6 +34,7 @@ class AddCompanyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val userId = AddCompanyFragmentArgs.fromBundle(requireArguments()).userId
 
         btnBack = view.findViewById(R.id.btnBack)
         btnSubmit = view.findViewById(R.id.btnSubmit)
@@ -45,8 +46,7 @@ class AddCompanyFragment : Fragment() {
             if(et_company_name.text.toString() == "" || et_company_pass.text.toString() == "" || et_company_desc.text.toString() == ""){
                 Toast.makeText(view.context, "Semua field harus diisi!", Toast.LENGTH_SHORT).show()
             }else{
-                val company = Company("", "${et_company_name.text}", "user yang sedang login", "${et_company_pass.text}")
-                viewModel.createCompany(company)
+                viewModel.createCompany(et_company_name.text.toString(), userId, et_company_pass.text.toString())
                 Toast.makeText(view.context, "Success", Toast.LENGTH_SHORT).show()
             }
         }

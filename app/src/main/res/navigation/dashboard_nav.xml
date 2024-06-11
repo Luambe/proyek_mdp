@@ -18,6 +18,7 @@
         <action
             android:id="@+id/action_userCompanyFragment_to_addCompanyFragment"
             app:destination="@id/addCompanyFragment" />
+        <argument android:name="userId" />
     </fragment>
     <fragment
         android:id="@+id/userHomeFragment"
@@ -42,7 +43,9 @@
         android:id="@+id/addCompanyFragment"
         android:name="com.example.code.AddCompany.AddCompanyFragment"
         android:label="fragment_add_company"
-        tools:layout="@layout/fragment_add_company" />
+        tools:layout="@layout/fragment_add_company" >
+        <argument android:name="userId" />
+    </fragment>
     <fragment
         android:id="@+id/companyDashboardFragment"
         android:name="com.example.code.CompanyDashboard.CompanyDashboardFragment"

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.code.Dashboard.Profile.UserProfileFragmentArgs
 import com.example.code.Login.LoginFragmentDirections
 import com.example.code.R
 import com.example.code.data.source.model.Company
@@ -48,6 +49,8 @@ class UserCompanyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userId = UserCompanyFragmentArgs.fromBundle(requireArguments()).userId
+
         val companies = ArrayList<Company>()
 
         val companyAdapter = CompanyAdapter{
@@ -73,15 +76,13 @@ class UserCompanyFragment : Fragment() {
         )
 
         binding.btnAdd.setOnClickListener {
-            val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment()
+            val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment(userId)
             findNavController().navigate(action)
             viewModel.getCompanies()
-//            val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment()
-//            findNavController().navigate(action)
 
-            showInputDialog() { userInput ->
-                Toast.makeText(requireContext(), "You entered: $userInput", Toast.LENGTH_SHORT).show()
-            }
+//            showInputDialog() { userInput ->
+//                Toast.makeText(requireContext(), "You entered: $userInput", Toast.LENGTH_SHORT).show()
+//            }
         }
     }
     private fun showInputDialog(onInputReceived: (String) -> Unit) {

@@ -2,7 +2,9 @@ package com.example.code.data.source.repository
 
 import com.example.code.data.source.local.AppDatabase
 import com.example.code.data.source.model.Company
+import com.example.code.data.source.model.User
 import com.example.code.data.source.remote.CompanyService
+import java.security.PrivateKey
 
 class DefaultCompanyRepository(
     private val localDataSource: AppDatabase,
@@ -25,9 +27,26 @@ class DefaultCompanyRepository(
     suspend fun getCompanyById(companyId: String): Company? {
         return localDataSource.companyDao().getCompanyById(companyId) ?: remoteDataSource.getCompanyById(companyId)
     }
-    suspend fun createCompany(company: Company) {
-        remoteDataSource.createCompany(company)
-//        localDataSource.companyDao().insertCompany(newCompany)
+
+    suspend fun createCompany(
+        companyName: String,
+        ownerId: String,
+        privateKey: String
+    ) {
+        val newCompany = remoteDataSource.createCompany(
+            companyName,
+            ownerId,
+            privateKey
+        )
+
+        val company = Company(
+            companyId = newCompany.companyId,
+            companyName = newCompany.companyName,
+            ownerId = newCompany.ownerId,
+            privateKey = newCompany.privateKey
+        )
+
+        localDataSource.companyDao().insertCompany(company)
     }
 
     suspend fun updateCompany(company: Company) {
