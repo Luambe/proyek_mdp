@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.code.data.source.model.User
 
 @Dao
@@ -19,6 +20,9 @@ interface UserDao {
 
     @Insert()
     suspend fun insertUser(user: User)
+
+    @Query("UPDATE users SET user_username = :userUsername, user_email = :userEmail, user_phone = :userPhone WHERE user_id = :userId")
+    suspend fun updateUser(userId: String, userUsername: String, userEmail: String, userPhone: String)
 
     @Query("UPDATE users SET user_role = :newRole WHERE user_id = :userId")
     suspend fun updateUserRole(userId: String, newRole: String)

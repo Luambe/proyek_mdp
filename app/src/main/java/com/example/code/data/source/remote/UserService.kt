@@ -34,7 +34,12 @@ interface UserService {
 
 
     @PUT("api/v1/user/{user_id}")
-    suspend fun updateUser(@Path("user_id") userId: String?, @Body updatedUser: User): User
+    suspend fun updateUser(
+        @Path("user_id") userId: String?,
+        @Field("user_username") userUsername: String,
+        @Field("user_phone") userPhone: String,
+        @Field("user_email") userEmail: String,
+    ): User
 
     @DELETE("api/v1/user/{user_id}")
     suspend fun deleteUser(@Path("user_id") userId: String?)
