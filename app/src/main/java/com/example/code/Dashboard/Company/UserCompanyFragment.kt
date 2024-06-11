@@ -51,30 +51,6 @@ class UserCompanyFragment : Fragment() {
 
         val userId = UserCompanyFragmentArgs.fromBundle(requireArguments()).userId
 
-        val companies = ArrayList<Company>()
-
-        val companyAdapter = CompanyAdapter{
-            val action = UserCompanyFragmentDirections.actionGlobalCompanyDashboardFragment()
-            findNavController().navigate(action)
-            viewModel.getCompanies()
-        }
-        binding.rvCompany.adapter = companyAdapter
-
-        companyAdapter.submitList(ArrayList<Company>())
-
-        val companiesObserver:Observer<List<Company>> = Observer{
-            companyAdapter.submitList(it)
-        }
-        viewModel.companies.observe(viewLifecycleOwner, companiesObserver)
-
-        viewModel.getCompanies()
-
-        binding.rvCompany.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvCompany.addItemDecoration(
-            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-        )
-
         binding.btnAdd.setOnClickListener {
             val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment(userId)
             findNavController().navigate(action)
