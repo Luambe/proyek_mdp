@@ -7,6 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.code.CompanyDashboard.CompanyDashboardFragmentDirections
+import com.example.code.Dashboard.Home.UserHomeFragmentDirections
+import com.example.code.Dashboard.Profile.UserProfileFragmentArgs
 import com.example.code.R
 
 class AttendanceMenuFragment : Fragment() {
@@ -26,7 +31,14 @@ class AttendanceMenuFragment : Fragment() {
 
         card_absence = view.findViewById(R.id.card_absence)
 
-        card_absence
+        val userId = UserProfileFragmentArgs.fromBundle(requireArguments()).userId
+
+        card_absence.setOnClickListener {
+            userId?.let { safeUserId ->
+                val action = AttendanceMenuFragmentDirections.actionGlobalAbsenceFragment2(safeUserId)
+                findNavController().navigate(action)
+            }
+        }
     }
 
 }

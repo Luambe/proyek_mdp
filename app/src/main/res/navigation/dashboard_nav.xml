@@ -63,7 +63,10 @@
         android:id="@+id/attendanceMenuFragment"
         android:name="com.example.code.AttendanceMenu.AttendanceMenuFragment"
         android:label="fragment_attendance_menu"
-        tools:layout="@layout/fragment_attendance_menu" />
+        tools:layout="@layout/fragment_attendance_menu" >
+        <argument android:name="userId"
+            app:argType="string" />
+    </fragment>
     <action
         android:id="@+id/action_global_attendanceMenuFragment"
         app:destination="@id/attendanceMenuFragment" />
@@ -92,7 +95,11 @@
         android:id="@+id/absenceFragment"
         android:name="com.example.code.Absence.AbsenceFragment"
         android:label="fragment_absence"
-        tools:layout="@layout/fragment_absence" />
+        tools:layout="@layout/fragment_absence" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <action
         android:id="@+id/action_global_absenceFragment2"
         app:destination="@id/absenceFragment" />
