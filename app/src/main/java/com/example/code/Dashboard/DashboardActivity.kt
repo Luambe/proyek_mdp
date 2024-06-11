@@ -76,9 +76,11 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.itemProfile -> {
-                    findNavController(R.id.navHost_nav_dashboard).
-                    navigate(R.id.action_global_userProfileFragment)
-                    drawerLayout.close()
+                    userId?.let { safeUserId ->
+                        val action = UserHomeFragmentDirections.actionGlobalUserProfileFragment(safeUserId)
+                        findNavController(R.id.navHost_nav_dashboard).navigate(action)
+                        drawerLayout.close()
+                    }
                 }
 
                 R.id.itemLogout -> {

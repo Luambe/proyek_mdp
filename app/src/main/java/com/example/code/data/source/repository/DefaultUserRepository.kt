@@ -32,11 +32,19 @@ class DefaultUserRepository(
     }
 
     suspend fun getUserById(userId: String): User? {
-        localDataSource.userDao().deleteAllUsers()
         val users = remoteDataSource.getAllUsers()
+        println("User dari remote : ${users}")
         localDataSource.userDao().deleteAllUsers()
         for (user in users) {
-            localDataSource.userDao().insertUser(user)
+            localDataSource.userDao().insertUser(User(
+                userId = user.userId,
+                userName = user.userName,
+                userUsername = user.userUsername,
+                userPassword = user.userPassword,
+                userEmail = user.userEmail,
+                userPhone = user.userPhone,
+                userRole = user.userRole
+            ))
         }
         return localDataSource.userDao().getUserById(userId)
     }
