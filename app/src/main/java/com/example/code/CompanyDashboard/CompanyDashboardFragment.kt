@@ -31,6 +31,7 @@ class CompanyDashboardFragment : Fragment() {
     lateinit var card_attendance: CardView
     lateinit var card_task:CardView
     lateinit var card_employee:CardView
+    lateinit var tvCompany: TextView
     lateinit var tvAnnouncement: TextView
     lateinit var etAnnouncement: EditText
     lateinit var btnEdit: ImageButton
@@ -39,7 +40,7 @@ class CompanyDashboardFragment : Fragment() {
     var announcement_text: String = ""
     var nowedit: Boolean = false
 //    var companyId: String = "81efffff-b3f5-477e-9507-d338b584e36a" //CompanyID RAMA
-    var companyId: String = "bc0f9eeb-09d3-4d31-9a61-1dcb328de5a9" //CompanyID Steven
+//    var companyId: String = "bc0f9eeb-09d3-4d31-9a61-1dcb328de5a9" //CompanyID Steven
     val viewModel:CompanyDashboardViewModel by viewModels<CompanyDashboardViewModel>()
 //    val navArgs:CompanyDashboardArgs by navArgs()
 
@@ -57,6 +58,7 @@ class CompanyDashboardFragment : Fragment() {
         card_attendance = view.findViewById(R.id.card_attendance)
         card_task = view.findViewById(R.id.card_task)
         card_employee = view.findViewById(R.id.card_employee)
+        tvCompany = view.findViewById(R.id.tv_company_companyDashboard)
         tvAnnouncement = view.findViewById(R.id.tvAnnouncement)
         etAnnouncement = view.findViewById(R.id.etAnnouncement)
         btnEdit = view.findViewById(R.id.btnEdit)
@@ -65,15 +67,52 @@ class CompanyDashboardFragment : Fragment() {
         etAnnouncement.isVisible = false
         btnCencel.isClickable = false
 
-        viewModel.getAnnouncement(companyId)
-        viewModel.announcement.observe(viewLifecycleOwner, Observer {
-            announcement_text = it
-            tvAnnouncement.setText(announcement_text)
-            etAnnouncement.setText(announcement_text)
-        })
+        println("sebelum")
 
         val userId = CompanyDashboardFragmentArgs.fromBundle(requireArguments()).userId
+        var companyId: String?= null
 
+        println("userid: ${userId}")
+
+        viewModel.getUserById(userId)
+
+        viewModel.user.observe(viewLifecycleOwner, Observer{
+            println("company id:")
+            println(it.companyId)
+            if(it.userRole != null) {
+                companyId = it.companyId
+            }
+
+            companyId?.let{id ->
+                viewModel.getCompany(id)
+            }
+
+            viewModel.company.observe(viewLifecycleOwner, Observer{company->
+                tvCompany.setText(company?.companyName)
+            })
+        })
+
+//        viewModel.company.observe(viewLifecycleOwner, Observer {
+//            println("sesudah")
+//            println("Company id:")
+//            println(it)
+//            if (it != null) {
+//                viewModel.getAnnouncement(it.companyId) // Call getAnnouncement once with company data
+//                println("lahhhhhhh")
+//            }
+//        })
+//
+//        var companyIdRetrieved = false // Flag to track if companyId is already set
+//
+//        viewModel.company.observe(viewLifecycleOwner, Observer { company ->
+//            println("company:")
+//            println(company)
+//            if (company != null && !companyIdRetrieved) {
+//                companyId = company.companyId
+//                viewModel.getAnnouncement(companyId.toString())
+//                companyIdRetrieved = true // Set flag after first call
+//            }
+//        })
 
         btn_back_main_menu.setOnClickListener {
             findNavController().popBackStack()
@@ -89,9 +128,10 @@ class CompanyDashboardFragment : Fragment() {
                 nowedit = true
             }
             else{
+
                 tvAnnouncement.setText(etAnnouncement.text.toString())
                 try {
-                    viewModel.updateAnnouncement(companyId, etAnnouncement.text.toString())
+                    viewModel.updateAnnouncement(companyId.toString(), etAnnouncement.text.toString())
                     Toast.makeText(view.context, "Success", Toast.LENGTH_SHORT).show()
                 }catch (e: Exception){
                     Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()

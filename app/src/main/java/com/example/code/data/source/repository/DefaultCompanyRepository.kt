@@ -5,6 +5,7 @@ import com.example.code.data.source.model.Announcement
 import com.example.code.data.source.model.Company
 import com.example.code.data.source.model.User
 import com.example.code.data.source.remote.CompanyService
+import kotlinx.coroutines.awaitAll
 import java.security.PrivateKey
 
 class DefaultCompanyRepository(
@@ -31,12 +32,10 @@ class DefaultCompanyRepository(
         }
     }
 
-    suspend fun getCompanyById(companyId: String): Company? {
+    suspend fun getCompanyById(companyId: String): Company?{
         println("masuk get company 1")
         val companies = remoteDataSource.getAllCompanies()
         println("masuk get company 2")
-        localDataSource.companyDao().deleteAllCompanies()
-        println("masuk get company 3")
         for (company in companies) {
             localDataSource.companyDao().insertCompany(Company(
                 companyId = company.companyId,
@@ -46,7 +45,7 @@ class DefaultCompanyRepository(
                 announcement = company.announcement
             ))
         }
-        println("masuk get company 4")
+        println(localDataSource.companyDao().getCompanyById(companyId))
         return localDataSource.companyDao().getCompanyById(companyId)
     }
 
