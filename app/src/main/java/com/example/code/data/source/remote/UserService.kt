@@ -52,5 +52,5 @@ interface UserService {
     )
 
     @PUT("api/v1/user/promote/{user_id}")
-    suspend fun promoteToManager(@Path("user_id") userId: String)
+    suspend fun promoteToManager(@Path("user_id") userId: String):User?
 }

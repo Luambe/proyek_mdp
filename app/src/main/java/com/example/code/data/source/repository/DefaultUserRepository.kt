@@ -96,9 +96,14 @@ class DefaultUserRepository(
         return remoteDataSource.updateUser(userId, userUpdateRequest)
     }
 
-    suspend fun updateUserRole(user: User) {
-//        val newUser = remoteDataSource.updateUser(user.userId, user)
-//        localDataSource.userDao().insertUser(newUser)
+//    suspend fun updateUserRole(user: User) {
+////        val newUser = remoteDataSource.updateUser(user.userId, user)
+////        localDataSource.userDao().insertUser(newUser)
+//    }
+
+    suspend fun promoteUser(userId: String):User?{
+        val user = remoteDataSource.promoteToManager(userId)
+        return localDataSource.userDao().getUserById(user!!.userId)
     }
 
     suspend fun deleteUser(user: User) {
