@@ -3,16 +3,15 @@ package com.example.code.data.source.repository
 import com.example.code.data.source.local.AppDatabase
 import com.example.code.data.source.model.User
 import com.example.code.data.source.remote.UserService
+import com.example.code.data.utils.UserUpdateRequest
 
 class DefaultUserRepository(
     private val localDataSource: AppDatabase,
     private val remoteDataSource: UserService
 ) {
     suspend fun getAllUsers(forceUpdate: Boolean = false): List<User> {
-        println("tesssss")
         return if (forceUpdate) {
             val users = remoteDataSource.getAllUsers()
-            println("User dari remote : ${users}")
             localDataSource.userDao().deleteAllUsers()
             for (user in users) {
                 localDataSource.userDao().insertUser(User(
@@ -33,7 +32,6 @@ class DefaultUserRepository(
 
     suspend fun getUserById(userId: String): User? {
         val users = remoteDataSource.getAllUsers()
-        println("User dari remote : ${users}")
         localDataSource.userDao().deleteAllUsers()
         for (user in users) {
             localDataSource.userDao().insertUser(User(
@@ -50,9 +48,6 @@ class DefaultUserRepository(
     }
 
     suspend fun getUserByIdAndPassword(username: String, password: String): User? {
-        println("username : ${username}")
-        println("password : ${password}")
-        println("users : ${remoteDataSource.getUserByIdAndPassword(username,password)}")
         return remoteDataSource.getUserByIdAndPassword(username,password)
     }
 
@@ -88,8 +83,14 @@ class DefaultUserRepository(
         localDataSource.userDao().insertUser(user)
     }
 
-    suspend fun updateUser(userId: String, userUsername: String, userEmail: String, userPhone: String):User{
-        return remoteDataSource.updateUser(userId, userUsername, userPhone, userEmail)
+    suspend fun updateUser(userId: String, userUsername: String, userEmail: String, userPhone: String): User {
+        val userUpdateRequest = UserUpdateRequest(
+            username = userUsername,
+            email = userEmail,
+            phone = userPhone
+        )
+        println("userUpdateRequest: $userUpdateRequest")
+        return remoteDataSource.updateUser(userId, userUpdateRequest)
     }
 
     suspend fun updateUserRole(user: User) {

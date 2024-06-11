@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -53,9 +54,16 @@ class UserProfileFragment : Fragment() {
             val username = etUsername.text.toString()
             val email = etEmail.text.toString()
             val phone = etPhone.text.toString()
-//            viewModel.update(userId, username, email, phone){
-//
-//            }
+            viewModel.update(userId, username, email, phone)
+            viewModel.user.observe(viewLifecycleOwner, Observer{
+                user = it
+                etUsername.setText(it.userUsername)
+                etEmail.setText(it.userEmail)
+                etPhone.setText(it.userPhone)
+            })
+            viewModel.status.observe(viewLifecycleOwner, Observer{
+                Toast.makeText(context, it.toString(),Toast.LENGTH_SHORT).show()
+            })
 
         }
     }

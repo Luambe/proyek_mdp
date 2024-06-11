@@ -44,12 +44,8 @@ class UserProfileViewModel : ViewModel() {
 
     fun update(userId: String, username: String, email: String, phone: String){
         viewModelScope.launch {
-//            var temp = userRepository.getUserById(userId)
-//            temp.userUsername = username
-//            temp.userEmail = email
-//            temp.userPhone = phone
-//
-//            _user.postValue(temp)
+            _user.postValue(userRepository.updateUser(userId,username,email,phone))
+            _status.postValue("success update")
         }
     }
 }

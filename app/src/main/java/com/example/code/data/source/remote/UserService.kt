@@ -1,6 +1,7 @@
 package com.example.code.data.source.remote
 
 import com.example.code.data.source.model.User
+import com.example.code.data.utils.UserUpdateRequest
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -36,9 +37,7 @@ interface UserService {
     @PUT("api/v1/user/{user_id}")
     suspend fun updateUser(
         @Path("user_id") userId: String?,
-        @Field("user_username") userUsername: String,
-        @Field("user_phone") userPhone: String,
-        @Field("user_email") userEmail: String,
+        @Body user: UserUpdateRequest
     ): User
 
     @DELETE("api/v1/user/{user_id}")
