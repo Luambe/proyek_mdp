@@ -6,25 +6,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.code.ManageApp
+import com.example.code.data.source.model.Attendance
 import com.example.code.data.source.model.Task
 import com.example.code.data.source.model.User
 import kotlinx.coroutines.launch
 
 class TaskListViewModel : ViewModel() {
     private val taskRepository = ManageApp.taskRepository
-    private val _status = MutableLiveData<String?>(null)
-    private val _tasks = MutableLiveData<List<Task?>>(null)
+    private val userRepository = ManageApp.userRepository
+    private val _task = MutableLiveData<List<Task>>()
+    private val _user = MutableLiveData<User>()
 
-    val tasks: LiveData<List<Task?>>
-        get() = _tasks
+    val tasks: LiveData<List<Task>>
+        get() = _task
+    val user: LiveData<User>
+        get() = _user
 
-    val status:LiveData<String?>
-        get() = _status
-
-    fun getAllTask(
-    ){
+    fun getTasks(force: Boolean = false) {
         viewModelScope.launch {
-            _tasks.postValue(taskRepository.getAllTasks(true))
+            _task.postValue(taskRepository.getAllTasks(true))
         }
     }
+
 }
