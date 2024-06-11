@@ -43,6 +43,6 @@ interface CompanyService {
     @DELETE("api/v1/company/")
     fun deleteAllCompany()
 
-    @GET("api/v1/company/employee/:company_id")
+    @GET("api/v1/company/employee/{company_id}")
     fun getEmployeeByCompanyId(@Path("company_id") companyId: String):List<User?>
 }

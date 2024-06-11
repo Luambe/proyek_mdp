@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -65,13 +66,14 @@ class TaskMenuFragment : Fragment() {
 
             viewModel.company.observe(viewLifecycleOwner, Observer{company->
                 tvCompany.setText(company?.companyName)
+                Toast.makeText(requireContext(), "${company?.companyName}", Toast.LENGTH_SHORT).show()
             })
         })
 
         cardAddTask.setOnClickListener{
             userId?.let { safeUserId ->
                 val action =
-                    TaskMenuFragmentDirections.actionGlobalTaskListFragment(safeUserId)
+                    TaskMenuFragmentDirections.actionGlobalAddTaskFragment(safeUserId)
                 findNavController().navigate(action)
             }
         }
@@ -79,7 +81,7 @@ class TaskMenuFragment : Fragment() {
         cardTaskList.setOnClickListener{
             userId?.let { safeUserId ->
                 val action =
-                    TaskMenuFragmentDirections.actionGlobalAddTaskFragment(safeUserId)
+                    TaskMenuFragmentDirections.actionGlobalTaskListFragment(safeUserId)
                 findNavController().navigate(action)
             }
         }

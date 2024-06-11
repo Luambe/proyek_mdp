@@ -26,7 +26,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView42"
+                    android:id="@+id/tv_company_addTask"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -53,6 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView7" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView14"
             android:layout_width="320dp"
             android:layout_height="380dp"
             android:layout_marginTop="28dp"
@@ -80,7 +81,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/et_name_addTask"
                     android:layout_width="280dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="80dp"
@@ -95,7 +96,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editTextText2"
+                    android:id="@+id/et_desc_addTask"
                     android:layout_width="280dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="140dp"
@@ -110,46 +111,46 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editTextDate"
+                    android:id="@+id/et_due_addTask"
                     android:layout_width="280dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="16dp"
                     android:background="@android:drawable/editbox_background_normal"
                     android:ems="10"
-                    android:hint="Due Date"
+                    android:hint="Due Date (DD/MM/YYYY)"
                     android:inputType="date"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+                    app:layout_constraintTop_toBottomOf="@+id/et_desc_addTask" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/btn_add_task"
+            android:id="@+id/btn_submit_addTask"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:padding="1dp"
             android:text="Submit Task"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/btn_back_task_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView14" />
 
         <Button
-            android:id="@+id/btn_back_task_menu"
+            android:id="@+id/btn_back_addTask"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="56dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="#00E1FF"
             android:text="Back to Task Menu"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_submit_addTask" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

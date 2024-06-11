@@ -18,7 +18,7 @@ interface CompanyDao {
     suspend fun insertCompany(company: Company)
 
     @Query("DELETE FROM companies")
-    fun deleteAllCompanies()
+    suspend fun deleteAllCompanies()
 
     @Query("DELETE FROM companies WHERE company_id = :companyId")
     suspend fun deleteCompanyById(companyId: String)

@@ -101,9 +101,14 @@ class UserCompanyFragment : Fragment() {
 
                 }
             }else if(role == "employee"){
-                showInputDialogEmployee() { userInput ->
-                    Toast.makeText(requireContext(), "You entered: $userInput", Toast.LENGTH_SHORT)
-                        .show()
+                showInputDialogEmployee() { secretKey ->
+
+                    try {
+                        viewModel.joinCompany(userId, secretKey)
+                        Toast.makeText(view.context, "Success", Toast.LENGTH_SHORT).show()
+                    }catch (e: Exception){
+                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

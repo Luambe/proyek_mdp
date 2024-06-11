@@ -11,6 +11,8 @@ import com.example.code.data.source.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 class UserCompanyViewModel : ViewModel(){
     //COMPANY
     private val companyRepository = ManageApp.companyRepository
@@ -46,7 +48,20 @@ class UserCompanyViewModel : ViewModel(){
             println(companyName)
             println(ownerId)
             println(privateKey)
-            companyRepository.createCompany(companyName, ownerId, privateKey)
+            withContext(Dispatchers.IO) {
+                companyRepository.createCompany(companyName, ownerId, privateKey)
+                userRepository.joinToCompany(ownerId, privateKey)
+            }
+            _status.postValue("success")
+        }
+    }
+
+    fun joinCompany(employeeId: String, privateKey: String){
+        _status.value = "processing"
+        viewModelScope.launch{
+            withContext(Dispatchers.IO) {
+                userRepository.joinToCompany(employeeId, privateKey)
+            }
             _status.postValue("success")
         }
     }
