@@ -112,4 +112,7 @@
     <action
         android:id="@+id/action_global_addTaskFragment"
         app:destination="@id/addTaskFragment" />
+    <action
+        android:id="@+id/action_global_taskMenuFragment"
+        app:destination="@id/taskMenuFragment" />
 </navigation>

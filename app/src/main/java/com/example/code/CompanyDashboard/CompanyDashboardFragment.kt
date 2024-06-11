@@ -15,9 +15,11 @@ import com.example.code.R
 class CompanyDashboardFragment : Fragment() {
 
     lateinit var btn_back_main_menu: Button
+    lateinit var card_attendance: CardView
+    lateinit var card_task:CardView
+    lateinit var card_employee:CardView
     val viewModel:CompanyDashboardViewModel by viewModels<CompanyDashboardViewModel>()
 //    val navArgs:CompanyDashboardArgs by navArgs()
-    lateinit var card_attendance:CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +33,8 @@ class CompanyDashboardFragment : Fragment() {
 
         btn_back_main_menu = view.findViewById(R.id.btn_back_main_menu)
         card_attendance = view.findViewById(R.id.card_attendance)
+        card_task = view.findViewById(R.id.card_task)
+        card_employee = view.findViewById(R.id.card_employee)
 
         btn_back_main_menu.setOnClickListener {
             findNavController().popBackStack()
@@ -41,6 +45,15 @@ class CompanyDashboardFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        card_task.setOnClickListener {
+            val action = CompanyDashboardFragmentDirections.actionGlobalTaskMenuFragment()
+            findNavController().navigate(action)
+        }
+
+        card_employee.setOnClickListener {
+            val action = CompanyDashboardFragmentDirections.actionGlobalManageEmployeeMenuFragment()
+            findNavController().navigate(action)
+        }
     }
 
 }
