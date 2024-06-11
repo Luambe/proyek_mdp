@@ -10,6 +10,8 @@ import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.code.AttendanceMenu.AttendanceMenuFragmentDirections
+import com.example.code.Dashboard.Profile.UserProfileFragmentArgs
 import com.example.code.R
 
 class CompanyDashboardFragment : Fragment() {
@@ -36,13 +38,17 @@ class CompanyDashboardFragment : Fragment() {
         card_task = view.findViewById(R.id.card_task)
         card_employee = view.findViewById(R.id.card_employee)
 
+        val userId = UserProfileFragmentArgs.fromBundle(requireArguments()).userId
+
         btn_back_main_menu.setOnClickListener {
             findNavController().popBackStack()
         }
 
         card_attendance.setOnClickListener {
-            val action = CompanyDashboardFragmentDirections.actionGlobalAttendanceMenuFragment()
-            findNavController().navigate(action)
+            userId?.let { safeUserId ->
+                val action = CompanyDashboardFragmentDirections.actionGlobalAttendanceMenuFragment(safeUserId)
+                findNavController().navigate(action)
+            }
         }
 
         card_task.setOnClickListener {

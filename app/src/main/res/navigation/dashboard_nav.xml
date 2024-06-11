@@ -50,7 +50,11 @@
         android:id="@+id/companyDashboardFragment"
         android:name="com.example.code.CompanyDashboard.CompanyDashboardFragment"
         android:label="fragment_company_dashboard"
-        tools:layout="@layout/fragment_company_dashboard" /><action android:id="@+id/action_global_companyDashboardFragment" app:destination="@id/companyDashboardFragment"/>
+        tools:layout="@layout/fragment_company_dashboard" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment><action android:id="@+id/action_global_companyDashboardFragment" app:destination="@id/companyDashboardFragment"/>
     <fragment
         android:id="@+id/manageAttendanceFragment"
         android:name="com.example.code.ManageAttendance.ManageAttendanceFragment"
