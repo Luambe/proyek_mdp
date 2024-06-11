@@ -43,7 +43,8 @@ class DefaultCompanyRepository(
             companyId = newCompany.companyId,
             companyName = newCompany.companyName,
             ownerId = newCompany.ownerId,
-            privateKey = newCompany.privateKey
+            privateKey = newCompany.privateKey,
+            announcement = newCompany.announcement
         )
 
         localDataSource.companyDao().insertCompany(company)

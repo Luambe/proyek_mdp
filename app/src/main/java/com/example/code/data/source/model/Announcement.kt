@@ -15,4 +15,6 @@ data class Announcement(
 
     @ColumnInfo(name = "announcement_body")
     @Json(name = "announcement_body") val announcementBody: String?
+
+
 )

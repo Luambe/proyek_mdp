@@ -20,5 +20,8 @@ data class Company(
     @Json(name = "owner_id") val ownerId: String?,
 
     @ColumnInfo(name = "private_key")
-    @Json(name = "private_key") val privateKey: String?
+    @Json(name = "private_key") val privateKey: String?,
+
+    @ColumnInfo(name = "announcement")
+    @Json(name = "announcement") val announcement:String?
 )
