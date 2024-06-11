@@ -39,14 +39,9 @@ class ManageAttendanceFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        val attendanceAdapter = AttendanceAdapter { userId ->
-            // Fetch the user synchronously or handle it in a way to return the userName
-            println("Debug 2")
-            println(userId)
+        val attendanceAdapter = AttendanceAdapter(viewModel) { userId ->
             viewModel.getUser(userId)
-            viewModel.user.observe(viewLifecycleOwner, Observer {
-
-            })
+            viewModel.user.value?.userName ?: "Unknown User"
         }
         rvAttendance.adapter = attendanceAdapter
 

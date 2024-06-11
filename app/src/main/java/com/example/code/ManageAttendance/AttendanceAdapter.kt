@@ -24,6 +24,7 @@ class AttedanceDiffUtil: DiffUtil.ItemCallback<Attendance>(){
 }
 
 class AttendanceAdapter(
+    val viewModel: ManageAttendanceViewModel,
     val getUsername: (String) -> Unit
 ) : ListAdapter<Attendance, AttendanceAdapter.ViewHolder>(AttedanceDiffUtil()) {
     class ViewHolder(val binding: DetailAttendanceListBinding): RecyclerView.ViewHolder(binding.root){
@@ -45,7 +46,14 @@ class AttendanceAdapter(
         val attendance = getItem(position)
         println("Debug 3")
         println(attendance.userId)
-        holder.tvName.text = getUsername(attendance.userId.toString())
+        holder.tvName.text = "Loading..."  // Placeholder text while fetching the username
+
+        viewModel.getUser(attendance.userId.toString())
+        viewModel.user.observeForever { user ->
+            if (user != null && user.userId == attendance.userId) {
+                holder.tvName.text = user.userName
+            }
+        }
         holder.tvStatus.text = if (attendance.attendanceStatus.toString() == "1") "Late" else "On Time"
         if(attendance.attendanceStatus.toString() == "1"){
             holder.imageStatus.setBackgroundResource(R.drawable.baseline_assignment_late_24)

@@ -22,21 +22,17 @@ class ManageAttendanceViewModel : ViewModel() {
     val user: LiveData<User>
         get() = _user
 
-    fun getAttendances(force:Boolean = false){
+    fun getAttendances(force: Boolean = false) {
         viewModelScope.launch {
             _attendance.postValue(attendanceRepository.getAllAttendances(true))
         }
     }
 
-    fun getUser(userId:String){
+    fun getUser(userId: String) {
         viewModelScope.launch {
-            println("Debug 4")
-            println(userId)
-            _user.postValue(userRepository.getUserById(userId))
+            val fetchedUser = userRepository.getUserById(userId)
+            _user.postValue(fetchedUser!!)
         }
-        println("Debug 1")
-        println(user.value?.userName.toString())
-
     }
 
 }
