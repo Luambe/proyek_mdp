@@ -13,7 +13,7 @@ class DefaultCompanyRepository(
     suspend fun getAllCompanies(forceUpdate: Boolean = false): List<Company> {
         return if (forceUpdate){
             val companies = remoteDataSource.getAllCompanies()
-            remoteDataSource.deleteAllCompany()
+            localDataSource.companyDao().deleteAllCompanies()
             for (company in companies) {
                 localDataSource.companyDao().insertCompany(Company(
                     companyId = company.companyId,
@@ -31,6 +31,17 @@ class DefaultCompanyRepository(
     }
 
     suspend fun getCompanyById(companyId: String): Company? {
+        val companies = remoteDataSource.getAllCompanies()
+        localDataSource.companyDao().deleteAllCompanies()
+        for (company in companies) {
+            localDataSource.companyDao().insertCompany(Company(
+                companyId = company.companyId,
+                companyName = company.companyName,
+                ownerId = company.ownerId,
+                privateKey = company.privateKey,
+                announcement = company.announcement
+            ))
+        }
         return localDataSource.companyDao().getCompanyById(companyId) ?: remoteDataSource.getCompanyById(companyId)
     }
 
