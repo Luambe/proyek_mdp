@@ -6,15 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import com.example.code.R
 
 class AttendanceMenuFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AttendanceMenuFragment()
-    }
-
     private lateinit var viewModel: AttendanceMenuViewModel
+    lateinit var card_absence:CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +21,12 @@ class AttendanceMenuFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_attendance_menu, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AttendanceMenuViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        card_absence = view.findViewById(R.id.card_absence)
+
+        card_absence
     }
 
 }

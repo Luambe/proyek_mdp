@@ -13,8 +13,13 @@ import kotlinx.coroutines.withContext
 class RegisterViewModel : ViewModel() {
     private val userRepository = ManageApp.userRepository
     private val _user = MutableLiveData<User?>(null)
+    private val _users = MutableLiveData<List<User>>(null)
+
     val user: LiveData<User?>
         get() = _user
+
+    val users: LiveData<List<User>>
+        get() = _users
 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?>
@@ -76,6 +81,11 @@ class RegisterViewModel : ViewModel() {
                 // Handle the error (e.g., show a toast or log the error)
                 _error.postValue("Failed to create user: ${e}")
             }
+        }
+    }
+    fun getAllUser(){
+        viewModelScope.launch {
+            _users.postValue(userRepository.getAllUsers(forceUpdate = true))
         }
     }
 }

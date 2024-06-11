@@ -11,6 +11,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.code.Login.LoginViewModel
 import com.example.code.R
@@ -66,6 +67,11 @@ class RegisterFragment : Fragment() {
                 role = "employee"
             }
         }
+
+        viewModel.getAllUser()
+        viewModel.users.observe(viewLifecycleOwner, Observer{
+            println("REGISTER Fragment users : ${it}")
+        })
 
         btnRegister.setOnClickListener{
 //            etName.setText("test")
@@ -142,5 +148,7 @@ class RegisterFragment : Fragment() {
             })
 
         }
+
+
     }
 }

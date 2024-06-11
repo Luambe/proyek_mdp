@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.code.R
@@ -16,6 +17,7 @@ class CompanyDashboardFragment : Fragment() {
     lateinit var btn_back_main_menu: Button
     val viewModel:CompanyDashboardViewModel by viewModels<CompanyDashboardViewModel>()
 //    val navArgs:CompanyDashboardArgs by navArgs()
+    lateinit var card_attendance:CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +30,17 @@ class CompanyDashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btn_back_main_menu = view.findViewById(R.id.btn_back_main_menu)
+        card_attendance = view.findViewById(R.id.card_attendance)
 
         btn_back_main_menu.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        card_attendance.setOnClickListener {
+            val action = CompanyDashboardFragmentDirections.actionGlobalAttendanceMenuFragment()
+            findNavController().navigate(action)
+        }
+
     }
 
 }
