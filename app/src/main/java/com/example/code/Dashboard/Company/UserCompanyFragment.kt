@@ -14,11 +14,13 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.marginTop
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.code.Dashboard.Home.UserHomeFragmentDirections
 import com.example.code.Dashboard.Profile.UserProfileFragmentArgs
 import com.example.code.Login.LoginFragmentDirections
 import com.example.code.R
@@ -55,24 +57,29 @@ class UserCompanyFragment : Fragment() {
         viewModel.getUserById(userId)
 
         var role = ""
-        var company: String?= null
+        var companyId: String?= null
 
         viewModel.user.observe(viewLifecycleOwner, Observer{
             if(it.userRole != null) {
                 role = it.userRole
-                company = it.companyId
+                companyId = it.companyId
             }
+
+            if(companyId != null) binding.btnAddUserCompany.visibility = View.GONE
+            else binding.cvCompanyUserCompany.visibility = View.GONE
+
+
+            companyId?.let{id ->
+                viewModel.getCompany(id)
+            }
+
+            viewModel.company.observe(viewLifecycleOwner, Observer{company->
+                binding.tvNameUserCompany.setText(company?.companyName)
+                binding.tvAnnouncementUserCompany.setText(company?.announcement)
+            })
         })
 
-        println(company)
-
-        if(company != null) binding.btnAdd.visibility = View.GONE
-
-        binding.btnAdd.setOnClickListener {
-//            val action = UserCompanyFragmentDirections.actionUserCompanyFragmentToAddCompanyFragment(userId)
-//            findNavController().navigate(action)
-//            viewModel.getCompanies()
-
+        binding.btnAddUserCompany.setOnClickListener {
             if(role == "owner"){
                 showInputDialogOwner() { companyName, companyKey ->
                     if(companyName == ""){
@@ -98,6 +105,13 @@ class UserCompanyFragment : Fragment() {
                     Toast.makeText(requireContext(), "You entered: $userInput", Toast.LENGTH_SHORT)
                         .show()
                 }
+            }
+        }
+
+        binding.btnCompanyDashboardUserCompany.setOnClickListener {
+            userId?.let { safeUserId ->
+                val action = UserCompanyFragmentDirections.actionGlobalCompanyDashboardFragment(safeUserId)
+                findNavController().navigate(action)
             }
         }
     }
