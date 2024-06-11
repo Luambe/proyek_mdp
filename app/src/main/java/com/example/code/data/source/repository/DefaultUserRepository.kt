@@ -116,4 +116,6 @@ class DefaultUserRepository(
     suspend fun joinToCompany(userId:String, privateKey: String){
         remoteDataSource.joinToCompany(userId, privateKey)
     }
+
+
 }
