@@ -16,8 +16,6 @@ import com.example.code.R
 import com.example.code.data.source.model.Attendance
 
 class ManageAttendanceFragment : Fragment() {
-
-
     val viewModel: ManageAttendanceViewModel by viewModels<ManageAttendanceViewModel>()
     lateinit var btnBack : Button
     lateinit var rvAttendance: RecyclerView

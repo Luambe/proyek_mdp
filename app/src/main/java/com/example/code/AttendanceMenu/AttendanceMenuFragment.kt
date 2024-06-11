@@ -1,6 +1,5 @@
 package com.example.code.AttendanceMenu
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,11 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.cardview.widget.CardView
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.example.code.CompanyDashboard.CompanyDashboardFragmentDirections
-import com.example.code.Dashboard.Home.UserHomeFragmentDirections
-import com.example.code.Dashboard.Profile.UserProfileFragmentArgs
 import com.example.code.R
 
 class AttendanceMenuFragment : Fragment() {
@@ -34,7 +29,7 @@ class AttendanceMenuFragment : Fragment() {
 
         card_absence = view.findViewById(R.id.card_absence)
         card_manage_attendance = view.findViewById(R.id.card_manage_attendance)
-        btn_back_company_dashboard = view.findViewById(R.id.btn_back_company_dashboard)
+        btn_back_company_dashboard = view.findViewById(R.id.btn_back_manageEmployee)
 
         val userId = AttendanceMenuFragmentArgs.fromBundle(requireArguments()).userId
 

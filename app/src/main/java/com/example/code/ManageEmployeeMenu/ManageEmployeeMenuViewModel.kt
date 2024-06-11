@@ -30,6 +30,13 @@ class ManageEmployeeMenuViewModel : ViewModel() {
         }
     }
 
+    fun getUser(userId: String) {
+        viewModelScope.launch {
+            val fetchedUser = userRepository.getUserById(userId)
+            _user.postValue(fetchedUser!!)
+        }
+    }
+
     fun promote(userId:String){
         viewModelScope.launch {
             _user.postValue(userRepository.promoteUser(userId))
