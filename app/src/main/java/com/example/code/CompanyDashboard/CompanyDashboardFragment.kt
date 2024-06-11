@@ -44,17 +44,12 @@ class CompanyDashboardFragment : Fragment() {
         card_employee = view.findViewById(R.id.card_employee)
         tvAnnoucement = view.findViewById(R.id.tvAnnouncement)
 
-        println("MASUK DASHBOARD FRAGMENT")
-
         viewModel.getAnnouncement(companyId)
-        println("MASUK DASHBOARD FRAGMENT2")
         viewModel.announcement.observe(viewLifecycleOwner, Observer {
             announcement_text = it
+            tvAnnoucement.setText(announcement_text)
         })
 
-        println("MASUK DASHBOARD FRAGMENT3")
-
-        tvAnnoucement.setText(announcement_text)
 //        val userId = UserProfileFragmentArgs.fromBundle(requireArguments()).userId
         val userId = "ASUKAMU"
 
