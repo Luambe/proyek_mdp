@@ -31,7 +31,8 @@ class ManageApp : Application() {
             val retrofit = Retrofit.Builder().addConverterFactory(
                 MoshiConverterFactory.create(moshi)
 //            ).baseUrl("http://192.168.18.5:3000/").build() // punya rama
-            ).baseUrl("http://192.168.1.8:3000/").build() //Punya Nick
+//            ).baseUrl("http://192.168.1.8:3000/").build() //Punya Nick
+            ).baseUrl("http://192.168.1.3:3000/").build() //Punya steven
 
             // Initialize services for each repository
             val announcementService = retrofit.create(AnnouncementService::class.java)

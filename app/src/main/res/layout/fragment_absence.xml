@@ -86,7 +86,6 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="28dp"
-                    android:backgroundTint="#00E1FF"
                     android:padding="1dp"
                     android:text="Check In"
                     android:textSize="16sp"
@@ -123,11 +122,12 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView6" />
 
         <Button
-            android:id="@+id/btn_back_dashboard"
+            android:id="@+id/btn_back_attendance_menu"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="80dp"
-            android:text="Back"
+            android:backgroundTint="#00E1FF"
+            android:text="Back to Attendance"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
