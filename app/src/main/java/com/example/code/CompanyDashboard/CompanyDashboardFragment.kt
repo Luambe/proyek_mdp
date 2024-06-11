@@ -28,7 +28,7 @@ class CompanyDashboardFragment : Fragment() {
     lateinit var card_employee:CardView
     lateinit var tvAnnouncement: TextView
     lateinit var etAnnouncement: EditText
-    lateinit var btnEdit: Button
+    lateinit var btnEdit: ImageButton
     lateinit var btnCencel: Button
 
     var announcement_text: String = ""
