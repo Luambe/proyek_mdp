@@ -58,6 +58,8 @@ class UserCompanyFragment : Fragment() {
 
         var role = ""
         var companyId: String?= null
+        var companyName: String?= null
+        var announcement: String?= null
 
         viewModel.user.observe(viewLifecycleOwner, Observer{
             if(it.userRole != null) {
@@ -74,6 +76,37 @@ class UserCompanyFragment : Fragment() {
             }
 
             viewModel.company.observe(viewLifecycleOwner, Observer{company->
+                companyName = company?.companyName
+                announcement = company?.announcement
+                binding.tvNameUserCompany.setText(company?.companyName)
+                binding.tvAnnouncementUserCompany.setText(company?.announcement)
+            })
+        })
+
+        viewModel.cek.observe(viewLifecycleOwner, Observer{
+            binding.btnAddUserCompany.visibility = View.GONE
+            binding.cvCompanyUserCompany.visibility = View.VISIBLE
+
+            viewModel.getUserById(userId)
+
+            val temp = viewModel.user
+
+            if(temp.value?.userRole != null) {
+                role = temp.value?.userRole.toString()
+                companyId = temp.value?.companyId
+            }
+
+            if(companyId != null) binding.btnAddUserCompany.visibility = View.GONE
+            else binding.cvCompanyUserCompany.visibility = View.GONE
+
+
+            companyId?.let{id ->
+                viewModel.getCompany(id)
+            }
+
+            viewModel.company.observe(viewLifecycleOwner, Observer{company->
+                companyName = company?.companyName
+                announcement = company?.announcement
                 binding.tvNameUserCompany.setText(company?.companyName)
                 binding.tvAnnouncementUserCompany.setText(company?.announcement)
             })
@@ -105,6 +138,7 @@ class UserCompanyFragment : Fragment() {
 
                     try {
                         viewModel.joinCompany(userId, secretKey)
+                        viewModel.cekJoin()
                         Toast.makeText(view.context, "Success", Toast.LENGTH_SHORT).show()
                     }catch (e: Exception){
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()

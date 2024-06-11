@@ -19,12 +19,16 @@ class UserCompanyViewModel : ViewModel(){
     private val _companies = MutableLiveData<List<Company>>()
     private val _company = MutableLiveData<Company?>(null)
     private val _status = MutableLiveData<String>()
+    private val _cek = MutableLiveData<String>()
 
     val companies:LiveData<List<Company>>
         get() = _companies
 
     val status:LiveData<String>
         get() = _status
+
+    val cek:LiveData<String>
+        get() = _cek
 
     fun getCompanies(force:Boolean = false){
         viewModelScope.launch {
@@ -81,5 +85,10 @@ class UserCompanyViewModel : ViewModel(){
         viewModelScope.launch {
             _user.postValue(userRepository.getUserById(userId))
         }
+    }
+
+    //CEK
+    fun cekJoin(){
+        _cek.postValue("join")
     }
 }
