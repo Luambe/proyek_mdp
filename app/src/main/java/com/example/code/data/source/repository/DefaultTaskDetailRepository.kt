@@ -31,7 +31,7 @@ class DefaultTaskDetailRepository(
         tdName:String,
         tdDescription:String,
         taskId:String,
-        tdStatus:Int
+        tdStatus:Boolean
     ) {
         val newTaskDetail = remoteDataSource.createTaskDetail(
             tdName,
@@ -39,7 +39,13 @@ class DefaultTaskDetailRepository(
             taskId,
             tdStatus
         )
-//        appDatabase.taskDetailDao().insertTaskDetail(newTaskDetail)
+        appDatabase.taskDetailDao().insertTaskDetail(TaskDetail(
+            tdId = newTaskDetail.tdId,
+            tdName = newTaskDetail.tdName,
+            tdDescription = newTaskDetail.tdDescription,
+            taskId = taskId,
+            tdStatus = tdStatus
+        ))
     }
 
     suspend fun updateTaskDetail(taskDetail: TaskDetail) {
