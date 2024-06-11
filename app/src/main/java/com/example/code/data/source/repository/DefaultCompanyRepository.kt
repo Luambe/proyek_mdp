@@ -15,7 +15,13 @@ class DefaultCompanyRepository(
             val companies = remoteDataSource.getAllCompanies()
             remoteDataSource.deleteAllCompany()
             for (company in companies) {
-                localDataSource.companyDao().insertCompany(company)
+                localDataSource.companyDao().insertCompany(Company(
+                    companyId = company.companyId,
+                    companyName = company.companyName,
+                    ownerId = company.ownerId,
+                    privateKey = company.privateKey,
+                    announcement = company.announcement
+                ))
             }
             companies
         }
