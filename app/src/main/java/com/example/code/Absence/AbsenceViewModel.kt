@@ -14,8 +14,9 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class AbsenceViewModel : ViewModel() {
-
     private val attendanceRepository = ManageApp.attendanceRepository
+    private val _status = MutableLiveData<String>()
+    private val _succes = MutableLiveData<String>()
 
     private val _currentTime = MutableLiveData<String>()
     val currentTime: LiveData<String> get() = _currentTime
@@ -31,6 +32,48 @@ class AbsenceViewModel : ViewModel() {
                 val now = LocalTime.now().format(formatter)
                 _currentTime.postValue(now)
                 delay(1000) // Delay 1 detik
+            }
+        }
+    }
+
+    val status:LiveData<String>
+        get() = _status
+    val succes:LiveData<String?>
+        get() = _succes
+    fun createAttendance(
+        userId:String,
+        attendanceStatus:String
+    ) {
+        viewModelScope.launch {
+            try {
+                attendanceRepository.createAttendance(userId, attendanceStatus)
+                _status.postValue("success")
+            } catch (e: Exception) {
+                // Tangani pengecualian di sini, contohnya:
+                _status.postValue("error: ${e.message}")
+            }
+        }
+    }
+
+    fun getAllAttendances(){
+        viewModelScope.launch{
+            attendanceRepository.getAllAttendances(true)
+        }
+    }
+
+    fun getAttendanceByUserId(
+        userId: String
+    ){
+        viewModelScope.launch {
+            println("Debug 3")
+//            _attendance.postValue(attendanceRepository.getAttendanceByUserId(userId))
+            println("Debug 4")
+            if(attendanceRepository.getAttendanceByUserId(userId) == null){
+                _status.postValue("belum")
+            }
+            else{
+                _status.postValue("sudah")
+                _succes.postValue(attendanceRepository.getAttendanceByUserId(userId)!!.attendanceStatus.toString())
             }
         }
     }

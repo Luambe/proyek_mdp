@@ -31,7 +31,7 @@ class AttendanceMenuFragment : Fragment() {
 
         card_absence = view.findViewById(R.id.card_absence)
 
-        val userId = UserProfileFragmentArgs.fromBundle(requireArguments()).userId
+        val userId = AttendanceMenuFragmentArgs.fromBundle(requireArguments()).userId
 
         card_absence.setOnClickListener {
             userId?.let { safeUserId ->

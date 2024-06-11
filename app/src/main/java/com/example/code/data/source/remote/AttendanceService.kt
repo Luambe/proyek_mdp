@@ -15,7 +15,10 @@ interface AttendanceService {
     suspend fun getAllAttendances(): List<Attendance>
 
     @GET("api/v1/attendance/{attendance_id}")
-    suspend fun getAttendanceById(@Path("attendance_id") attendanceId: String): Attendance
+    suspend fun getAttendanceById(@Path("attendance_id") attendanceId: String): Attendance?
+
+    @GET("api/v1/attendance/user/{user_id}")
+    suspend fun getAttendanceByUserId(@Path("user_id") userId: String): Attendance?
 
     @FormUrlEncoded
     @POST("api/v1/attendance")

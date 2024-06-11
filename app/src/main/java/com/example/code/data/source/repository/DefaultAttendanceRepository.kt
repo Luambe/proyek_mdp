@@ -11,11 +11,13 @@ class DefaultAttendanceRepository(
     suspend fun getAllAttendances(forceUpdate: Boolean = false): List<Attendance> {
         return if (forceUpdate) {
             val attendances = remoteDataSource.getAllAttendances()
-            appDatabase.attendanceDao().apply {
-                deleteAllAttendances()
-                for (attendance in attendances) {
-                    insertAttendance(attendance)
-                }
+            appDatabase.attendanceDao().deleteAllAttendances()
+            for (attendance in attendances){
+                appDatabase.attendanceDao().insertAttendance(Attendance(
+                    attendanceId = attendance.attendanceId,
+                    userId = attendance.userId,
+                    attendanceStatus = attendance.attendanceStatus
+                ))
             }
             attendances
         } else {
@@ -24,7 +26,17 @@ class DefaultAttendanceRepository(
     }
 
     suspend fun getAttendanceById(attendanceId: String): Attendance? {
-        return appDatabase.attendanceDao().getAttendanceById(attendanceId)
+        return appDatabase.attendanceDao().getAttendanceByUserId(attendanceId)
+    }
+
+    suspend fun getAttendanceByUserId(userId: String): Attendance? {
+        return try {
+            remoteDataSource.getAttendanceByUserId(userId)
+        } catch (e: Exception) {
+            // Log error or handle it appropriately
+            println("Error fetching attendance: ${e.message}")
+            null
+        }
     }
 
     suspend fun createAttendance(
@@ -32,7 +44,7 @@ class DefaultAttendanceRepository(
         attendanceStatus:String
     ) {
         val newAttendance = remoteDataSource.createAttendance(userId, attendanceStatus)
-//        appDatabase.attendanceDao().insertAttendance(newAttendance)
+        appDatabase.attendanceDao().insertAttendance(newAttendance)
     }
 
     suspend fun updateAttendance(attendance: Attendance) {

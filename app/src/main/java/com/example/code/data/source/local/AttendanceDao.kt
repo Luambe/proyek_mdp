@@ -14,6 +14,9 @@ interface AttendanceDao {
     @Query("SELECT * FROM attendances WHERE attendance_id = :attendanceId")
     suspend fun getAttendanceById(attendanceId: String): Attendance?
 
+    @Query("SELECT * FROM attendances WHERE user_id = :userId")
+    suspend fun getAttendanceByUserId(userId: String): Attendance?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAttendance(attendance: Attendance)
 
