@@ -77,7 +77,27 @@ class TaskDetailFragment : Fragment() {
         btn_task_done.setOnClickListener {
             viewModel.td.observe(viewLifecycleOwner, Observer {
                 if(it?.employeeId == userId){
+                    viewModel.updateTask(it.taskId)
+                }
+            })
 
+            viewModel.getTask(taskId)
+            viewModel.td.observe(viewLifecycleOwner, Observer {
+                tvTaskTitle.setText(it?.taskName.toString())
+                tvTaskDesc.setText(it?.taskDescription.toString())
+
+                if(it?.taskStatus == 0){
+                    tvTaskStatus.setText("Assigned")
+                    tvTaskStatus.setTextColor(Color.parseColor("#E60808"))
+                }
+                else if(it?.taskStatus == 1){
+                    tvTaskStatus.setText("Done")
+                    tvTaskStatus.setTextColor(Color.parseColor("#00FF0D"))
+                }
+
+                if(it?.managerId == userId){
+                    btn_task_done.isVisible = false
+                    btn_task_done.isClickable = false
                 }
             })
         }
