@@ -85,12 +85,21 @@ class CompanyDashboardFragment : Fragment() {
 
             companyId?.let{id ->
                 viewModel.getCompany(id)
+                viewModel.getAnnouncement(id)
             }
 
             viewModel.company.observe(viewLifecycleOwner, Observer{company->
                 tvCompany.setText(company?.companyName)
             })
+
+            viewModel.announcement.observe(viewLifecycleOwner, Observer {
+                announcement_text = it
+                tvAnnouncement.setText(announcement_text)
+                etAnnouncement.setText(announcement_text)
+            })
         })
+
+
 
 //        viewModel.company.observe(viewLifecycleOwner, Observer {
 //            println("sesudah")
@@ -115,7 +124,8 @@ class CompanyDashboardFragment : Fragment() {
 //        })
 
         btn_back_main_menu.setOnClickListener {
-            findNavController().popBackStack()
+            val action = CompanyDashboardFragmentDirections.actionGlobalUserCompanyFragment(userId)
+            findNavController().navigate(action)
         }
 
         btnEdit.setOnClickListener {
