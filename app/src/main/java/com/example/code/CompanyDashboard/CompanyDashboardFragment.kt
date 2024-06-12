@@ -85,6 +85,9 @@ class CompanyDashboardFragment : Fragment() {
 
             if(it.userRole == "employee"){
                 card_employee.visibility = View.GONE
+
+                btnEdit.visibility = View.GONE
+                btnCencel.visibility = View.GONE
             }
 
             companyId?.let{id ->

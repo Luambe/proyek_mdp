@@ -44,14 +44,11 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_attendance"
             android:layout_width="360dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="40dp"
+            android:layout_height="120dp"
             app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView4"
-            app:layout_constraintVertical_bias="0.359">
+            app:layout_constraintTop_toBottomOf="@+id/textView10">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -75,7 +72,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_task"
             android:layout_width="360dp"
-            android:layout_height="130dp"
+            android:layout_height="120dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +101,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_employee"
             android:layout_width="360dp"
-            android:layout_height="130dp"
+            android:layout_height="120dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,13 +132,13 @@
             android:layout_width="360dp"
             android:layout_height="120dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.515"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView4" >
+            app:layout_constraintTop_toBottomOf="@+id/textView9">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -207,7 +204,7 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:text="Today's Announcement"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -219,7 +216,7 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:text="Dashboard"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -231,16 +228,16 @@
             android:id="@+id/btn_back_main_menu"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
             android:backgroundTint="#FFD500"
             android:padding="1dp"
             android:text="Back to Main Menu"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_employee" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
