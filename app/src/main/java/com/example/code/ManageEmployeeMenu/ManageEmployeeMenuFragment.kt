@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.code.Dashboard.Company.UserCompanyFragmentArgs
 import com.example.code.ManageAttendance.AttendanceAdapter
 import com.example.code.ManageAttendance.ManageAttendanceViewModel
 import com.example.code.R
@@ -21,7 +22,7 @@ import com.example.code.data.source.model.User
 class ManageEmployeeMenuFragment : Fragment() {
     val viewModel: ManageEmployeeMenuViewModel by viewModels<ManageEmployeeMenuViewModel>()
     lateinit var btnBack : Button
-    lateinit var rvAttendance: RecyclerView
+    lateinit var rv_employee_manageEmployee: RecyclerView
     
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,27 +36,41 @@ class ManageEmployeeMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnBack = view.findViewById(R.id.btn_back_manageEmployee)
-        rvAttendance = view.findViewById(R.id.rv_employee_manageEmployee)
+        rv_employee_manageEmployee = view.findViewById(R.id.rv_employee_manageEmployee)
 
         btnBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        val employeeAdapter = EmployeeAdapter(viewModel)
-        rvAttendance.adapter = employeeAdapter
+        val userId = ManageEmployeeMenuFragmentArgs.fromBundle(requireArguments()).userId
 
+        println(userId)
+        viewModel.getUser(userId)
+        println("ini user dakjal")
+        println(viewModel.user.value)
+        viewModel.user.observe(viewLifecycleOwner, Observer {
+            println("ini company dakjal : $it")
+            viewModel.getEmployee(it.companyId.toString())
+        })
+
+        val employeeAdapter = EmployeeAdapter(viewModel)
+        rv_employee_manageEmployee.adapter = employeeAdapter
+
+        println("Debug 1")
         employeeAdapter.submitList(ArrayList<User>())
 
-        val employeeObserver: Observer<List<User?> > = Observer {
+        println("Debug 2")
+
+        val employeeObserver: Observer<List<User>> = Observer {
             employeeAdapter.submitList(it)
         }
-        viewModel.users.observe(viewLifecycleOwner, employeeObserver)
+        viewModel.employee.observe(viewLifecycleOwner, employeeObserver)
+        println("Debug 4")
+        viewModel.getEmployee(viewModel.user.value?.companyId.toString())
 
-        viewModel.getAllUser()
-
-        rvAttendance.layoutManager =
+        rv_employee_manageEmployee.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rvAttendance.addItemDecoration(
+        rv_employee_manageEmployee.addItemDecoration(
             DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         )
 

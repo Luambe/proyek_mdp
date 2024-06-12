@@ -33,23 +33,29 @@ class DefaultUserRepository(
     }
 
     suspend fun getUserById(userId: String): User? {
-        val users = remoteDataSource.getAllUsers()
-        localDataSource.userDao().deleteAllUsers()
-        for (user in users) {
-            localDataSource.userDao().insertUser(User(
-                userId = user.userId,
-                userName = user.userName,
-                userUsername = user.userUsername,
-                userPassword = user.userPassword,
-                userEmail = user.userEmail,
-                userPhone = user.userPhone,
-                companyId = user.companyId,
-                userRole = user.userRole
-            ))
+        try {
+            val users = remoteDataSource.getAllUsers()
+            localDataSource.userDao().deleteAllUsers()
+            for (user in users) {
+                localDataSource.userDao().insertUser(User(
+                    userId = user.userId,
+                    userName = user.userName,
+                    userUsername = user.userUsername,
+                    userPassword = user.userPassword,
+                    userEmail = user.userEmail,
+                    userPhone = user.userPhone,
+                    companyId = user.companyId,
+                    userRole = user.userRole
+                ))
+            }
+            println("Debug 5")
+            println(localDataSource.userDao().getUserById(userId))
+            return localDataSource.userDao().getUserById(userId)
+        }catch (e: Exception) {
+            println("getUserById")
+            e.printStackTrace()
         }
-        println("Debug 5")
-        println(localDataSource.userDao().getUserById(userId))
-        return localDataSource.userDao().getUserById(userId)
+        return TODO("Provide the return value")
     }
 
     suspend fun getUserByIdAndPassword(username: String, password: String): User? {
@@ -104,8 +110,15 @@ class DefaultUserRepository(
 //    }
 
     suspend fun promoteUser(userId: String):User?{
-        val user = remoteDataSource.promoteToManager(userId)
-        return localDataSource.userDao().getUserById(user!!.userId)
+        try {
+            val user = remoteDataSource.promoteToManager(userId)
+            return localDataSource.userDao().getUserById(user!!.userId)
+        }catch (e: Exception) {
+            println("promoteUser")
+            e.printStackTrace()
+        }
+        return TODO("Provide the return value")
+
     }
 
     suspend fun deleteUser(user: User) {

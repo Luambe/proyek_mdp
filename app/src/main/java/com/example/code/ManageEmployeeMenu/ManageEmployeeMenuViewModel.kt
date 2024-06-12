@@ -10,36 +10,35 @@ import com.example.code.data.source.model.User
 import kotlinx.coroutines.launch
 
 class ManageEmployeeMenuViewModel : ViewModel() {
+    private val companyRepository = ManageApp.companyRepository
     private val userRepository = ManageApp.userRepository
-    private val _status = MutableLiveData<String?>(null)
-    private val _users = MutableLiveData<List<User?>>(null)
-    private val _user = MutableLiveData<User?>(null)
+    private val _employee = MutableLiveData<List<User>>()
+    private val _user = MutableLiveData<User>()
 
-    val users: LiveData<List<User?>>
-        get() = _users
 
-    val status: LiveData<String?>
-        get() = _status
-
-    val user: LiveData<User?>
+    val employee: LiveData<List<User>>
+        get() = _employee
+    val user: LiveData<User>
         get() = _user
 
-    fun getAllUser(){
+
+    fun getEmployee(companyId : String){
         viewModelScope.launch {
-            _users.postValue(userRepository.getAllUsers(forceUpdate = true))
+            println("INI DI SINI INININININININNIIN")
+            println(companyId)
+            _employee.postValue(companyRepository.getEmployeeFromCompany(companyId))
         }
     }
 
     fun getUser(userId: String) {
         viewModelScope.launch {
-            val fetchedUser = userRepository.getUserById(userId)
-            _user.postValue(fetchedUser!!)
+            _user.postValue(userRepository.getUserById(userId))
         }
     }
 
     fun promote(userId:String){
         viewModelScope.launch {
-            _user.postValue(userRepository.promoteUser(userId))
+            userRepository.promoteUser(userId)
         }
     }
 }

@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@ class UserDiffUtil: DiffUtil.ItemCallback<User>(){
     }
 
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-        return oldItem.userId == newItem.userId && oldItem.userRole == newItem.userRole
+        return oldItem.userName == newItem.userName && oldItem.userRole == newItem.userRole
     }
 }
 
@@ -47,25 +48,22 @@ class EmployeeAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = getItem(position)
-        println("Debug 3")
+        println("Debug 7")
         println(user.userId)
         holder.tvName.text = "Loading..."  // Placeholder text while fetching the username
 
-        viewModel.getUser(user.userId.toString())
-        viewModel.user.observeForever { user ->
-            if (user != null) {
-                holder.tvName.text = user.userName
-                holder.tvRole.text = user.userRole
+        viewModel.getUser(user.userId)
+        viewModel.user.observeForever(Observer {
+            if (it != null) {
+                holder.tvName.text = it.userName
+                holder.tvRole.text = it.userRole
             }
-        }
+        })
 
         holder.btnPromote.setOnClickListener {
             viewModel.promote(user.userId)
         }
 
-//        holder.btnPromote.setOnClickListener {
-//            onClickListener?.invoke(user)
-//        }
     }
 
 }

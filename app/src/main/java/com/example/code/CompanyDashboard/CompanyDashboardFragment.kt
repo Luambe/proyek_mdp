@@ -198,8 +198,11 @@ class CompanyDashboardFragment : Fragment() {
         }
 
         card_employee.setOnClickListener {
-            val action = CompanyDashboardFragmentDirections.actionGlobalManageEmployeeMenuFragment()
-            findNavController().navigate(action)
+            userId?.let { safeUserId ->
+                val action =
+                    CompanyDashboardFragmentDirections.actionGlobalManageEmployeeMenuFragment(safeUserId)
+                findNavController().navigate(action)
+            }
         }
     }
 

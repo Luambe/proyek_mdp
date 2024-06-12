@@ -123,7 +123,11 @@
         android:id="@+id/manageEmployeeMenuFragment"
         android:name="com.example.code.ManageEmployeeMenu.ManageEmployeeMenuFragment"
         android:label="fragment_manage_employee_menu"
-        tools:layout="@layout/fragment_manage_employee_menu" />
+        tools:layout="@layout/fragment_manage_employee_menu" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <action
         android:id="@+id/action_global_manageEmployeeMenuFragment"
         app:destination="@id/manageEmployeeMenuFragment" />
