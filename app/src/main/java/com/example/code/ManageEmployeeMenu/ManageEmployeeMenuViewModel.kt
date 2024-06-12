@@ -14,12 +14,17 @@ class ManageEmployeeMenuViewModel : ViewModel() {
     private val userRepository = ManageApp.userRepository
     private val _employee = MutableLiveData<List<User>>()
     private val _user = MutableLiveData<User>()
+    private val _status = MutableLiveData<String>()
 
 
     val employee: LiveData<List<User>>
         get() = _employee
+
     val user: LiveData<User>
         get() = _user
+
+    val status: LiveData<String>
+        get() = _status
 
 
     fun getEmployee(companyId : String){
@@ -32,7 +37,9 @@ class ManageEmployeeMenuViewModel : ViewModel() {
 
     fun getUser(userId: String) {
         viewModelScope.launch {
+            println("Ini userId dari siinjang : $userId")
             _user.postValue(userRepository.getUserById(userId))
+            _status.postValue("sukses")
         }
     }
 

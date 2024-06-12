@@ -32,25 +32,39 @@ class DefaultUserRepository(
         }
     }
 
-    suspend fun getUserById(userId: String): User? {
+    suspend fun getUserById(userId: String): User {
         try {
             val users = remoteDataSource.getAllUsers()
-            localDataSource.userDao().deleteAllUsers()
-            for (user in users) {
-                localDataSource.userDao().insertUser(User(
-                    userId = user.userId,
-                    userName = user.userName,
-                    userUsername = user.userUsername,
-                    userPassword = user.userPassword,
-                    userEmail = user.userEmail,
-                    userPhone = user.userPhone,
-                    companyId = user.companyId,
-                    userRole = user.userRole
-                ))
-            }
+            println("Guk")
+//            localDataSource.userDao().deleteAllUsers()
+//            println("Guk2")
+//            for (user in users) {
+//                println("GUK GUK GUK RAWRRRRR")
+//                localDataSource.userDao().insertUser(User(
+//                    userId = user.userId,
+//                    userName = user.userName,
+//                    userUsername = user.userUsername,
+//                    userPassword = user.userPassword,
+//                    userEmail = user.userEmail,
+//                    userPhone = user.userPhone,
+//                    companyId = user.companyId,
+//                    userRole = user.userRole
+//                ))
+//            }
             println("Debug 5")
-            println(localDataSource.userDao().getUserById(userId))
-            return localDataSource.userDao().getUserById(userId)
+            println(userId)
+            val user = remoteDataSource.getUserById(userId)
+            println("Debug 6")
+            return User(
+                userId = user.userId,
+                userName = user.userName,
+                userUsername = user.userUsername,
+                userPassword = user.userPassword,
+                userEmail = user.userEmail,
+                userPhone = user.userPhone,
+                companyId = user.companyId,
+                userRole = user.userRole
+            )
         }catch (e: Exception) {
             println("getUserById")
             e.printStackTrace()

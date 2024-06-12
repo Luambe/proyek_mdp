@@ -46,6 +46,14 @@ class ManageEmployeeMenuFragment : Fragment() {
 
         println(userId)
         viewModel.getUser(userId)
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            if(it == "sukses"){
+                println("Aman Boss Ku")
+            }
+            else{
+                println("RED FLAG LU")
+            }
+        })
         println("ini user dakjal")
         println(viewModel.user.value)
         viewModel.user.observe(viewLifecycleOwner, Observer {

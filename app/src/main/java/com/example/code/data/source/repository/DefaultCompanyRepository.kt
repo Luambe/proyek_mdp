@@ -84,12 +84,8 @@ class DefaultCompanyRepository(
 
     suspend fun getEmployeeFromCompany(companyId: String): List<User>{
         println(companyId)
-        try {
-            return remoteDataSource.getEmployeeFromCompany(companyId)
-        }catch (e: Exception) {
-            println("GetEmployee")
-            e.printStackTrace()
-        }
-        return TODO("Provide the return value")
+
+        return remoteDataSource.getEmployeeFromCompany(companyId)
+
     }
 }
