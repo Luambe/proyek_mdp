@@ -22,9 +22,11 @@ class TaskListViewModel : ViewModel() {
     val user: LiveData<User>
         get() = _user
 
-    fun getTasks(force: Boolean = false) {
+    fun getTasks(userId: String) {
         viewModelScope.launch {
-            _task.postValue(taskRepository.getAllTasks(true))
+            val allTasks = taskRepository.getAllTasks(true)
+            val filteredTasks = allTasks.filter { it.employeeId == userId || it.managerId == userId}
+            _task.postValue(filteredTasks)
         }
     }
 

@@ -40,4 +40,19 @@ class TaskDetailViewModel : ViewModel() {
         }
         return task
     }
+
+    fun updateTask(taskId: String){
+        viewModelScope.launch {
+            fetchUpdateTask(taskId)
+        }
+    }
+
+    suspend fun fetchUpdateTask(taskId:String): Task? {
+        var task:Task? = null
+        viewModelScope.launch {
+            taskRepository.updateTask(taskId.toString())
+            task = taskRepository.getTaskById(taskId)
+        }
+        return task
+    }
 }

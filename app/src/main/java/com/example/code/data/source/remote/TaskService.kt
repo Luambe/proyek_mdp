@@ -28,7 +28,7 @@ interface TaskService {
     ): Task
 
     @PUT("api/v1/task/{task_id}")
-    suspend fun updateTask(@Path("task_id") taskId: String, @Body updatedTask: Task): Task
+    suspend fun updateTask(@Path("task_id") taskId: String): Task
 
     @DELETE("api/v1/task/{task_id}")
     suspend fun deleteTask(@Path("task_id") taskId: String)
