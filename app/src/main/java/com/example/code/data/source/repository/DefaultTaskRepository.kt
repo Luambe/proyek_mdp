@@ -33,7 +33,7 @@ class DefaultTaskRepository(
         appDatabase.taskDao().deleteAllTasks()
         for (task in tasks){
             appDatabase.taskDao().insertTask(Task(
-                taskId = task .taskId,
+                taskId = task.taskId,
                 taskName = task.taskName,
                 taskDescription = task.taskDescription,
                 employeeId = task.employeeId,
