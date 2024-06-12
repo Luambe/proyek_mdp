@@ -15,7 +15,7 @@ class AttendanceMenuFragment : Fragment() {
     private lateinit var viewModel: AttendanceMenuViewModel
     lateinit var card_absence:CardView
     lateinit var card_manage_attendance:CardView
-    lateinit var btn_back_company_dashboard:Button
+    lateinit var btnBack:Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,7 @@ class AttendanceMenuFragment : Fragment() {
 
         card_absence = view.findViewById(R.id.card_absence)
         card_manage_attendance = view.findViewById(R.id.card_manage_attendance)
-        btn_back_company_dashboard = view.findViewById(R.id.btn_back_manageEmployee)
+        btnBack = view.findViewById(R.id.btnBack)
 
         val userId = AttendanceMenuFragmentArgs.fromBundle(requireArguments()).userId
 
@@ -47,7 +47,7 @@ class AttendanceMenuFragment : Fragment() {
             }
         }
 
-        btn_back_company_dashboard.setOnClickListener {
+        btnBack.setOnClickListener {
             userId?.let { safeUserId ->
                 val action = AttendanceMenuFragmentDirections.actionGlobalCompanyDashboardFragment(safeUserId)
                 findNavController().navigate(action)

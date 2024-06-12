@@ -115,7 +115,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/btn_back_manageEmployee"
+            android:id="@+id/btnBack"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"

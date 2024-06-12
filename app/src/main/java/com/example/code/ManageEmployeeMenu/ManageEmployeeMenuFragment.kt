@@ -35,14 +35,16 @@ class ManageEmployeeMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnBack = view.findViewById(R.id.btn_back_manageEmployee)
+        btnBack = view.findViewById(R.id.btnBack)
         rv_employee_manageEmployee = view.findViewById(R.id.rv_employee_manageEmployee)
 
+        val userId = ManageEmployeeMenuFragmentArgs.fromBundle(requireArguments()).userId
+
         btnBack.setOnClickListener {
-            findNavController().popBackStack()
+            val action = ManageEmployeeMenuFragmentDirections.actionGlobalCompanyDashboardFragment(userId)
+            findNavController().navigate(action)
         }
 
-        val userId = ManageEmployeeMenuFragmentArgs.fromBundle(requireArguments()).userId
 
         println(userId)
         viewModel.getUser(userId)
