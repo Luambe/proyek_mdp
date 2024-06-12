@@ -21,7 +21,7 @@ import com.example.code.data.source.model.User
 
 class ManageEmployeeMenuFragment : Fragment() {
     val viewModel: ManageEmployeeMenuViewModel by viewModels<ManageEmployeeMenuViewModel>()
-    lateinit var btnBack : Button
+    lateinit var btn_back_manage_employee : Button
     lateinit var rv_employee_manageEmployee: RecyclerView
     
     override fun onCreateView(
@@ -35,12 +35,12 @@ class ManageEmployeeMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnBack = view.findViewById(R.id.btnBack)
+        btn_back_manage_employee = view.findViewById(R.id.btn_back_manage_employee)
         rv_employee_manageEmployee = view.findViewById(R.id.rv_employee_manageEmployee)
 
         val userId = ManageEmployeeMenuFragmentArgs.fromBundle(requireArguments()).userId
 
-        btnBack.setOnClickListener {
+        btn_back_manage_employee.setOnClickListener {
             val action = ManageEmployeeMenuFragmentDirections.actionGlobalCompanyDashboardFragment(userId)
             findNavController().navigate(action)
         }
