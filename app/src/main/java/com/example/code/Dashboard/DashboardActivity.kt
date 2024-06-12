@@ -55,28 +55,12 @@ class DashboardActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.itemHome -> {
-                    println("User id di dashboard activity sebelum membuat bundle: $userId")
-                    val bundle = Bundle().apply {
-                        putString("userId", userId)
-                    }
-                    println("Bundle yang dikirim ke UserHomeFragment: $bundle")
-                    findNavController(R.id.navHost_nav_dashboard).navigate(R.id.userHomeFragment, bundle)
-                    drawerLayout.close()
-                }
-
                 R.id.itemCompany -> {
                     userId?.let { safeUserId ->
                         val action = UserHomeFragmentDirections.actionGlobalUserCompanyFragment(safeUserId)
                         findNavController(R.id.navHost_nav_dashboard).navigate(action)
                         drawerLayout.close()
                     }
-                }
-
-                R.id.itemTask -> {
-                    findNavController(R.id.navHost_nav_dashboard).
-                    navigate(R.id.action_global_userTaskFragment)
-                    drawerLayout.close()
                 }
 
                 R.id.itemProfile -> {
