@@ -60,6 +60,10 @@ class TaskMenuFragment : Fragment() {
                 companyId = it.companyId
             }
 
+            if(it.userRole == "employee"){
+                cardAddTask.visibility = View.GONE
+            }
+
             companyId?.let{id ->
                 viewModel.getCompany(id)
             }
