@@ -29,18 +29,8 @@ class DefaultTaskRepository(
     }
 
     suspend fun getTaskById(taskId: String): Task? {
-        val tasks = remoteDataSource.getAllTasks()
-        appDatabase.taskDao().deleteAllTasks()
-        for (task in tasks){
-            appDatabase.taskDao().insertTask(Task(
-                taskId = task.taskId,
-                taskName = task.taskName,
-                taskDescription = task.taskDescription,
-                employeeId = task.employeeId,
-                managerId = task.managerId,
-                taskStatus = task.taskStatus
-            ))
-        }
+//                println("isi local storagenya byId: ${appDatabase.taskDao().getTaskById(taskId)}")
+
         return appDatabase.taskDao().getTaskById(taskId)
     }
 

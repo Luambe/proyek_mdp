@@ -24,8 +24,20 @@ class TaskDetailViewModel : ViewModel() {
 
     fun getTask(taskId: String){
         viewModelScope.launch {
-            _td.postValue(taskRepository.getTaskById(taskId))
-            _status.postValue("success")
+            println("isi isi fetchTasknya : ${fetchTask(taskId)}")
+            _td.postValue(fetchTask(taskId))
         }
+    }
+
+    suspend fun fetchTask(taskId: String):Task?{
+        var task:Task? = null
+        viewModelScope.launch {
+            _td.postValue(taskRepository.getTaskById(taskId))
+            println(taskRepository.getTaskById(taskId))
+            _status.postValue("success")
+
+            task = taskRepository.getTaskById(taskId)
+        }
+        return task
     }
 }

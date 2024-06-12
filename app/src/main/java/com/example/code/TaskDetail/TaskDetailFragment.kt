@@ -38,16 +38,18 @@ class TaskDetailFragment : Fragment() {
         val taskId = TaskDetailFragmentArgs.fromBundle(requireArguments()).taskId
         viewModel.getTask(taskId)
         viewModel.td.observe(viewLifecycleOwner, Observer {
+            println("isi td observer")
+            println(it)
             tvTaskTitle.setText(it?.taskName.toString())
             tvTaskDesc.setText(it?.taskDescription.toString())
 
             if(it?.taskStatus == 0){
-                tvTaskTitle.setText("Assigned")
-                tvTaskTitle.setTextColor(Color.parseColor("#E60808"))
+                tvTaskStatus.setText("Assigned")
+                tvTaskStatus.setTextColor(Color.parseColor("#E60808"))
             }
             else if(it?.taskStatus == 1){
-                tvTaskTitle.setText("Done")
-                tvTaskTitle.setTextColor(Color.parseColor("#00FF0D"))
+                tvTaskStatus.setText("Done")
+                tvTaskStatus.setTextColor(Color.parseColor("#00FF0D"))
             }
         })
     }
