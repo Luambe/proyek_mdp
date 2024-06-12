@@ -33,7 +33,6 @@ class DefaultUserRepository(
     }
 
     suspend fun getUserById(userId: String): User? {
-        try {
             val users = remoteDataSource.getAllUsers()
             println("Guk")
 //            localDataSource.userDao().deleteAllUsers()
@@ -67,11 +66,6 @@ class DefaultUserRepository(
 //                companyId = user.companyId,
 //                userRole = user.userRole
 //            )
-        }catch (e: Exception) {
-            println("getUserById")
-            e.printStackTrace()
-        }
-        return TODO("Provide the return value")
     }
 
     suspend fun getUserByIdAndPassword(username: String, password: String): User? {
