@@ -26,7 +26,8 @@ class TaskListViewModel : ViewModel() {
         viewModelScope.launch {
             val allTasks = taskRepository.getAllTasks(true)
             val filteredTasks = allTasks.filter { it.employeeId == userId || it.managerId == userId}
-            _task.postValue(filteredTasks)
+            val sortedTasks = filteredTasks.sortedBy { it.taskStatus == 1 }
+            _task.postValue(sortedTasks)
         }
     }
 

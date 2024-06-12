@@ -104,7 +104,6 @@ class DashboardActivity : AppCompatActivity() {
 
         builder.setPositiveButton("Logout") { dialog, which ->
             dialog.dismiss()
-            
         }
 
         builder.setNegativeButton("Cancel") { dialog, which ->

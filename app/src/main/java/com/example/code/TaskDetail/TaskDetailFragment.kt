@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
@@ -62,6 +63,8 @@ class TaskDetailFragment : Fragment() {
             else if(it?.taskStatus == 1){
                 tvTaskStatus.setText("Done")
                 tvTaskStatus.setTextColor(Color.parseColor("#00FF0D"))
+                btn_task_done.isVisible = false
+                btn_task_done.isClickable = false
             }
 
             if(it?.managerId == userId){
@@ -78,6 +81,8 @@ class TaskDetailFragment : Fragment() {
             viewModel.td.observe(viewLifecycleOwner, Observer {
                 if(it?.employeeId == userId){
                     viewModel.updateTask(it.taskId)
+                    Toast.makeText(requireContext(), "Task Submitted", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
                 }
             })
 
@@ -93,6 +98,8 @@ class TaskDetailFragment : Fragment() {
                 else if(it?.taskStatus == 1){
                     tvTaskStatus.setText("Done")
                     tvTaskStatus.setTextColor(Color.parseColor("#00FF0D"))
+                    btn_task_done.isVisible = false
+                    btn_task_done.isClickable = false
                 }
 
                 if(it?.managerId == userId){
