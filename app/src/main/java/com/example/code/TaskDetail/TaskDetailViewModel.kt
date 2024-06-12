@@ -40,4 +40,10 @@ class TaskDetailViewModel : ViewModel() {
         }
         return task
     }
+
+    fun updateTask(taskId: String){
+        viewModelScope.launch {
+
+        }
+    }
 }

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.code.ManageAttendance.AttendanceAdapter
 import com.example.code.ManageAttendance.ManageAttendanceViewModel
 import com.example.code.R
+import com.example.code.TaskDetail.TaskDetailFragmentArgs
 import com.example.code.data.source.model.Attendance
 import com.example.code.data.source.model.Task
 
@@ -38,10 +39,12 @@ class TaskListFragment : Fragment() {
         rvTaskList = view.findViewById(R.id.rvTaskList)
         btn_back_task = view.findViewById(R.id.btn_back_task)
 
+        val userId = TaskListFragmentArgs.fromBundle(requireArguments()).userId
+
         val tasklistAdapter = TasklistAdapter{
-            val action = TaskListFragmentDirections.actionGlobalTaskDetailFragment(it.taskId)
+            val action = TaskListFragmentDirections.actionGlobalTaskDetailFragment(it.taskId, userId)
             findNavController().navigate(action)
-            viewModel.getTasks()
+            viewModel.getTasks(userId)
         }
         rvTaskList.adapter = tasklistAdapter
 
@@ -52,7 +55,7 @@ class TaskListFragment : Fragment() {
         }
         viewModel.tasks.observe(viewLifecycleOwner, tasklistObserver)
 
-        viewModel.getTasks()
+        viewModel.getTasks(userId)
 
         rvTaskList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

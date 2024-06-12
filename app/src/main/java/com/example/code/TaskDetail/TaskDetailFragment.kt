@@ -7,18 +7,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.code.CompanyDashboard.CompanyDashboardFragmentArgs
 import com.example.code.CompanyDashboard.CompanyDashboardViewModel
 import com.example.code.R
+import com.example.code.TaskList.TaskListFragmentArgs
 
 class TaskDetailFragment : Fragment() {
     lateinit var tvTaskTitle: TextView
     lateinit var tvTaskDesc: TextView
     lateinit var tvTaskStatus: TextView
+    lateinit var btn_back_task_list: Button
+    lateinit var btn_task_done: Button
 
     val viewModel: TaskDetailViewModel by viewModels<TaskDetailViewModel>()
     override fun onCreateView(
@@ -34,7 +40,13 @@ class TaskDetailFragment : Fragment() {
         tvTaskTitle = view.findViewById(R.id.tvTaskTitle)
         tvTaskDesc = view.findViewById(R.id.tvTaskDesc)
         tvTaskStatus = view.findViewById(R.id.tvTaskStatus)
+        btn_back_task_list = view.findViewById(R.id.btn_back_task_list)
+        btn_task_done = view.findViewById(R.id.btn_task_done)
 
+        btn_task_done.isVisible = true
+        btn_task_done.isClickable = true
+
+        val userId = TaskDetailFragmentArgs.fromBundle(requireArguments()).userId
         val taskId = TaskDetailFragmentArgs.fromBundle(requireArguments()).taskId
         viewModel.getTask(taskId)
         viewModel.td.observe(viewLifecycleOwner, Observer {
@@ -51,7 +63,24 @@ class TaskDetailFragment : Fragment() {
                 tvTaskStatus.setText("Done")
                 tvTaskStatus.setTextColor(Color.parseColor("#00FF0D"))
             }
+
+            if(it?.managerId == userId){
+                btn_task_done.isVisible = false
+                btn_task_done.isClickable = false
+            }
         })
+
+        btn_back_task_list.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        btn_task_done.setOnClickListener {
+            viewModel.td.observe(viewLifecycleOwner, Observer {
+                if(it?.employeeId == userId){
+
+                }
+            })
+        }
     }
 
 }
