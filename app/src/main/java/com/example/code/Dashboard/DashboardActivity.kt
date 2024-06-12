@@ -1,5 +1,6 @@
 package com.example.code.Dashboard
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +18,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.navArgs
 import com.example.code.Dashboard.Home.UserHomeFragmentArgs
 import com.example.code.Dashboard.Home.UserHomeFragmentDirections
+import com.example.code.MainActivity
 import com.example.code.R
 import com.google.android.material.navigation.NavigationView
 
@@ -86,7 +88,9 @@ class DashboardActivity : AppCompatActivity() {
                 }
 
                 R.id.itemLogout -> {
-                    showLogoutConfirmationDialog()
+//                    showLogoutConfirmationDialog()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }
             }
             true
