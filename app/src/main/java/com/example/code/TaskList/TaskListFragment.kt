@@ -39,7 +39,7 @@ class TaskListFragment : Fragment() {
         btn_back_task = view.findViewById(R.id.btn_back_task)
 
         val tasklistAdapter = TasklistAdapter{
-            val action = TaskListFragmentDirections.actionGlobalTaskDetailFragment()
+            val action = TaskListFragmentDirections.actionGlobalTaskDetailFragment(it.taskId)
             findNavController().navigate(action)
             viewModel.getTasks()
         }

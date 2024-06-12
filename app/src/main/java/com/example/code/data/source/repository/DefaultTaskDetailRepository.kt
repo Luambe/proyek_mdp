@@ -11,12 +11,7 @@ class DefaultTaskDetailRepository(
     suspend fun getAllTaskDetails(forceUpdate: Boolean = false): List<TaskDetail> {
         return if (forceUpdate) {
             val taskDetails = remoteDataSource.getAllTaskDetails()
-            appDatabase.taskDetailDao().apply {
-                deleteAllTaskDetails()
-                for (taskDetail in taskDetails) {
-                    insertTaskDetail(taskDetail)
-                }
-            }
+            appDatabase.taskDetailDao().deleteAllTaskDetails()
             taskDetails
         } else {
             appDatabase.taskDetailDao().getAllTaskDetails()

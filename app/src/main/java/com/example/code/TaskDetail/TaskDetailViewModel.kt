@@ -12,24 +12,20 @@ import com.example.code.data.source.model.TaskDetail
 import kotlinx.coroutines.launch
 
 class TaskDetailViewModel : ViewModel() {
-    private val taskDetailRepository = ManageApp.taskDetailRepository
+    private val taskRepository = ManageApp.taskRepository
     private val _status = MutableLiveData<String?>(null)
-    private val _td = MutableLiveData<TaskDetail?>(null)
+    private val _td = MutableLiveData<Task?>(null)
 
     val status:LiveData<String?>
         get() = _status
 
-    val td:LiveData<TaskDetail?>
+    val td:LiveData<Task?>
         get() = _td
 
-    fun addNewTaskDetail(
-        tdName:String,
-        tdDescription: String,
-        taskId:String,
-        tdStatus:Boolean
-    ){
+    fun getTask(taskId: String){
         viewModelScope.launch {
-            taskDetailRepository.createTaskDetail(tdName,tdDescription,taskId,tdStatus)
+            _td.postValue(taskRepository.getTaskById(taskId))
+            _status.postValue("success")
         }
     }
 }

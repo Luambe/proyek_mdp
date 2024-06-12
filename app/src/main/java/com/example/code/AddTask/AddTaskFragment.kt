@@ -23,7 +23,6 @@ class AddTaskFragment : Fragment() {
     lateinit var tvCompany: TextView
     lateinit var etName: EditText
     lateinit var etDesc: EditText
-    lateinit var etDue: EditText
     lateinit var btnSubmit: Button
     lateinit var btnBack: Button
 
@@ -41,7 +40,6 @@ class AddTaskFragment : Fragment() {
         tvCompany = view.findViewById(R.id.tv_company_addTask)
         etName = view.findViewById(R.id.et_name_addTask)
         etDesc = view.findViewById(R.id.et_desc_addTask)
-        etDue = view.findViewById(R.id.et_due_addTask)
         btnSubmit = view.findViewById(R.id.btn_submit_addTask)
         btnBack = view.findViewById(R.id.btn_back_addTask)
 
@@ -72,7 +70,6 @@ class AddTaskFragment : Fragment() {
         btnSubmit.setOnClickListener {
             val name = etName.text.toString()
             val desc = etDesc.text.toString()
-            val due = etDue.text.toString()
 
             if(name == ""){
                 Toast.makeText(requireContext(), "Task Name cannot be empty!", Toast.LENGTH_SHORT).show()
@@ -81,11 +78,6 @@ class AddTaskFragment : Fragment() {
 
             if(desc == ""){
                 Toast.makeText(requireContext(), "Task Description cannot be empty!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if(due == ""){
-                Toast.makeText(requireContext(), "Due Date cannot be empty!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 

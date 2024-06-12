@@ -6,13 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.code.CompanyDashboard.CompanyDashboardFragmentArgs
 import com.example.code.R
 
 class TaskDetailFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = TaskDetailFragment()
-    }
 
     private lateinit var viewModel: TaskDetailViewModel
 
@@ -23,10 +20,10 @@ class TaskDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_task_detail, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TaskDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val taskId = TaskDetailFragmentArgs.fromBundle(requireArguments()).taskId
+        viewModel.getTask(taskId)
     }
 
 }
