@@ -68,7 +68,7 @@ class ManageEmployeeMenuFragment : Fragment() {
         rv_employee_manageEmployee.adapter = employeeAdapter
 //
 ////        println("Debug 1")
-        employeeAdapter.submitList(ArrayList<User>())
+//        employeeAdapter.submitList(ArrayList<User>())
 //
 ////        println("Debug 2")
 //

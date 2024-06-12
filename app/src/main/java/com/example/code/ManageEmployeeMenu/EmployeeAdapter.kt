@@ -48,20 +48,14 @@ class EmployeeAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = getItem(position)
-        println("Debug 7")
-        println(user.userId)
-        holder.tvName.text = "Loading..."  // Placeholder text while fetching the username
-
-        viewModel.getUser(user.userId)
-        viewModel.user.observeForever(Observer {
-            if (it != null) {
-                holder.tvName.text = it.userName
-                holder.tvRole.text = it.userRole
-            }
-        })
+        holder.tvName.text = user.userName
+        holder.tvRole.text = user.userRole
 
         holder.btnPromote.setOnClickListener {
             viewModel.promote(user.userId)
+            viewModel.getUser(user.userId)
+            holder.tvName.text = user.userName
+            holder.tvRole.text = user.userRole
         }
 
     }
