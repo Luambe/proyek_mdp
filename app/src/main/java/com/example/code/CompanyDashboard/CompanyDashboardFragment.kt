@@ -83,6 +83,10 @@ class CompanyDashboardFragment : Fragment() {
                 companyId = it.companyId
             }
 
+            if(it.userRole == "employee"){
+                card_employee.visibility = View.GONE
+            }
+
             companyId?.let{id ->
                 viewModel.getCompany(id)
                 viewModel.getAnnouncement(id)
