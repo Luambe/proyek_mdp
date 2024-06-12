@@ -32,7 +32,7 @@ class DefaultUserRepository(
         }
     }
 
-    suspend fun getUserById(userId: String): User {
+    suspend fun getUserById(userId: String): User? {
         try {
             val users = remoteDataSource.getAllUsers()
             println("Guk")
@@ -53,18 +53,20 @@ class DefaultUserRepository(
 //            }
             println("Debug 5")
             println(userId)
-            val user = remoteDataSource.getUserById(userId)
+            val user = localDataSource.userDao().getUserById(userId)
+            println("ini user setelqah debug 5 : $user")
             println("Debug 6")
-            return User(
-                userId = user.userId,
-                userName = user.userName,
-                userUsername = user.userUsername,
-                userPassword = user.userPassword,
-                userEmail = user.userEmail,
-                userPhone = user.userPhone,
-                companyId = user.companyId,
-                userRole = user.userRole
-            )
+            return user
+//            return User(
+//                userId = user.userId,
+//                userName = user.userName,
+//                userUsername = user.userUsername,
+//                userPassword = user.userPassword,
+//                userEmail = user.userEmail,
+//                userPhone = user.userPhone,
+//                companyId = user.companyId,
+//                userRole = user.userRole
+//            )
         }catch (e: Exception) {
             println("getUserById")
             e.printStackTrace()

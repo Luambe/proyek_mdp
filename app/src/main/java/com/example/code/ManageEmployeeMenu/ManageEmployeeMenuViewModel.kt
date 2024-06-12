@@ -30,15 +30,23 @@ class ManageEmployeeMenuViewModel : ViewModel() {
     fun getEmployee(companyId : String){
         viewModelScope.launch {
             println("INI DI SINI INININININININNIIN")
-            println(companyId)
+            println("ini company idnya : $companyId")
             _employee.postValue(companyRepository.getEmployeeFromCompany(companyId))
         }
     }
 
     fun getUser(userId: String) {
         viewModelScope.launch {
+            println("masuk getuser")
+            fetchUser(userId)
+        }
+    }
+
+    suspend fun fetchUser(userId:String){
+        viewModelScope.launch {
             println("Ini userId dari siinjang : $userId")
             _user.postValue(userRepository.getUserById(userId))
+            println("SUKSES getUser")
             _status.postValue("sukses")
         }
     }

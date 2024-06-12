@@ -47,6 +47,7 @@ class ManageEmployeeMenuFragment : Fragment() {
         println(userId)
         viewModel.getUser(userId)
         viewModel.status.observe(viewLifecycleOwner, Observer {
+            println("masuk status observer")
             if(it == "sukses"){
                 println("Aman Boss Ku")
             }
@@ -60,22 +61,24 @@ class ManageEmployeeMenuFragment : Fragment() {
             println("ini company dakjal : $it")
             viewModel.getEmployee(it.companyId.toString())
         })
-
+//
         val employeeAdapter = EmployeeAdapter(viewModel)
         rv_employee_manageEmployee.adapter = employeeAdapter
-
-        println("Debug 1")
+//
+////        println("Debug 1")
         employeeAdapter.submitList(ArrayList<User>())
-
-        println("Debug 2")
-
+//
+////        println("Debug 2")
+//
         val employeeObserver: Observer<List<User>> = Observer {
             employeeAdapter.submitList(it)
         }
         viewModel.employee.observe(viewLifecycleOwner, employeeObserver)
         println("Debug 4")
-        viewModel.getEmployee(viewModel.user.value?.companyId.toString())
-
+        viewModel.user.observe(viewLifecycleOwner, Observer {
+            viewModel.getEmployee(it.companyId.toString())
+        })
+//
         rv_employee_manageEmployee.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         rv_employee_manageEmployee.addItemDecoration(
