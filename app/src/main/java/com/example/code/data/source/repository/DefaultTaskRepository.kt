@@ -57,9 +57,8 @@ class DefaultTaskRepository(
         return appDatabase.taskDao().getTaskById(newTask.taskId)
     }
 
-    suspend fun updateTask(task: Task) {
-        val newTask = remoteDataSource.updateTask(task.taskId, task)
-        appDatabase.taskDao().insertTask(newTask)
+    suspend fun updateTask(taskId:String) {
+        remoteDataSource.updateTask(taskId)
     }
 
     suspend fun deleteTask(taskId: String) {
